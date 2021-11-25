@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="/assets/css/owl.css">
+<!-- Page Content -->
+<!-- Banner Starts Here -->
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="caption">
+                    <h2>Chào mừng quý khách đến với Pixie store</h2>
+                    <div class="line-dec"></div>
+                    <p><strong>Pixie</strong> tự hào mang đến cho quý khách những dòng sản phẩm mới nhất với nhất rẻ nhất.
+                        <br><br>Quý khách có thể xem các dòng sản phẩm mới nhất <a rel="nofollow" href="/products">tại đây</a></p>
+                    <div class="main-button">
+                        <a href="/products">Order Now!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Banner Ends Here -->
+
+<!-- Featured Starts Here -->
+<div class="featured-items">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <div class="line-dec"></div>
+                    <h1>Featured Items</h1>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="owl-carousel owl-theme">
+                        {{#each products}}
+                            <a href="/detail-product/{{this.slug}}">
+                                <div class="featured-item">
+                                    <img src="{{getValue this.image 0}}" alt="Item 1">
+                                    <h4>{{this.name}}</h4>
+                                    <h6>{{this.price}}</h6>
+                                </div>
+                            </a>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featred Ends Here -->
