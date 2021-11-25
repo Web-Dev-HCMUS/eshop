@@ -1,0 +1,57 @@
+<!-- Page Content -->
+<!-- Items Starts Here -->
+<div class="featured-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <div class="section-heading">
+                    <div class="line-dec"></div>
+                    <h1>Featured Items</h1>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div id="filters" class="button-group">
+                    <a href="/products/iphone" class="btn btn-outline-primary">iPhone</a>
+                    <a href="/products/ipad" class="btn btn-outline-primary">iPad</a>
+                    <a href="/products/macbook" class="btn btn-outline-primary">Macbook</a>
+                    <a href="/products/watch" class="btn btn-outline-primary">Apple Watch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="featured container no-gutter">
+
+    <div class="row posts">
+
+        {{#each products}}
+        <div class="item new col-md-4">
+            <a href="/detail-product/{{this.slug}}">
+                <div class="featured-item">
+                    <img src="{{getValue this.image 0}}" alt="Item {{sum @index 1}}">
+                    <h4>{{this.name}}</h4>
+                    <h6>{{this.price}}</h6>
+                </div>
+            </a>
+        </div>
+        {{/each}}
+
+    </div>
+</div>
+
+<div class="page-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    <li class="current-page"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featred Page Ends Here -->
