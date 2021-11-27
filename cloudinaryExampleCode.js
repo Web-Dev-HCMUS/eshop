@@ -4,6 +4,8 @@ Account: nttung19@clc.fitus.edu.vn
 Password: ne6kaJv_JJiH&y2
 */
 
+// run cmd: node cloudinaryExampleCode.js
+
 const express = require('express'); 
 const formidable = require('formidable'); //npm i formidable
 const cloudinary = require('cloudinary').v2; //npm i cloudinary
@@ -44,6 +46,6 @@ app.post('/api/upload', (req, res, next) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Server listening on http://localhost:3000 ...');
+app.listen(8080, () => {
+  console.log('Server listening on http://localhost:8080 ...');
 });
