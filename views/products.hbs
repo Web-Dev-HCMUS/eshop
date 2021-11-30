@@ -23,10 +23,10 @@
 
 <div class="featured container no-gutter">
 
-    <div class="row posts">
+    <div class="row">
 
         {{#each products}}
-        <div class="item new col-md-4">
+        <div class="new col-md-4">
             <a href="/detail-product/{{this.slug}}">
                 <div class="featured-item">
                     <img src="{{getValue this.image 0}}" alt="Item {{sum @index 1}}">
