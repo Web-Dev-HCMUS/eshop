@@ -11,10 +11,11 @@
             </div>
             <div class="col-md-8 col-sm-12">
                 <div id="filters" class="button-group">
-                    <a href="/products/iphone" class="btn btn-outline-primary">iPhone</a>
-                    <a href="/products/ipad" class="btn btn-outline-primary">iPad</a>
-                    <a href="/products/macbook" class="btn btn-outline-primary">Macbook</a>
-                    <a href="/products/watch" class="btn btn-outline-primary">Apple Watch</a>
+                    <a href="/products/query?index=0&type=iphone" class="btn btn-outline-primary">iPhone</a>
+                    <a href="/products/query?index=0&type=ipad" class="btn btn-outline-primary">iPad</a>
+                    <a href="/products/query?index=0&type=macbook" class="btn btn-outline-primary">Macbook</a>
+                    <a href="/products/query?index=0&type=watch" class="btn btn-outline-primary">Apple Watch</a>
+                
                 </div>
             </div>
         </div>
@@ -45,9 +46,9 @@
         <div class="row">
             <div class="col-md-12">
                 <ul>
-                    <li class="current-page"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
+                   <li ><a href="/products/query?index=0&type={{query.type}}">1</a></li>
+                    <li><a href="/products/query?index=1&type={{query.type}}">2</a></li>
+                    <li><a href="/products/query?index=2&type={{query.type}}">3</a></li>
                     <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
                 </ul>
             </div>
