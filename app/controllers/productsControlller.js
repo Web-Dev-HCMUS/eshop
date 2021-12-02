@@ -1,6 +1,8 @@
 const Product = require('../models/Product')
 const mongooseObject = require('../../ulti/mongoose');
 
+
+let perPage = 2;
 class productsControlller {
     // [GET] /
     index(req, res, next){
@@ -10,6 +12,24 @@ class productsControlller {
             })
             .catch(error => next(error));
     }
+    query(req, res, next) {
+        console.log("query", req.query);
+        let type = req.query.type == "" ? {} : { type: req.query.type };
+        Product.find(type)
+          .limit(perPage)
+          .skip(perPage * req.query.index)
+          .then((products) => {
+            res.render("products", {
+              products: mongooseObject.multipleMongooseToObject(products),
+              query: {
+                index: req.query.index,
+                type: type == {} ? "" : req.query.type,
+              },
+            });
+          })
+          .catch((error) => console.log("error", error));
+      }
+    
 
     // [GET] /:type
     show(req, res, next){
