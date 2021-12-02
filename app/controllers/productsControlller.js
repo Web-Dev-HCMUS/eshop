@@ -30,15 +30,15 @@ class productsControlller {
   }
 
   // [GET] /:type
-  show(req, res, next) {
-    Product.find({ type: req.params.type })
-      .then((products) => {
-        res.render("products", {
-          products: mongooseObject.multipleMongooseToObject(products),
-        });
-      })
-      .catch((error) => next(error));
-  }
+  // show(req, res, next) {
+  //   Product.find({ type: req.params.type })
+  //     .then((products) => {
+  //       res.render("products", {
+  //         products: mongooseObject.multipleMongooseToObject(products),
+  //       });
+  //     })
+  //     .catch((error) => next(error));
+  // }
 }
 
 module.exports = new productsControlller();
