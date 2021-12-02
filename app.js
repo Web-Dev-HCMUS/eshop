@@ -2,24 +2,30 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const route = require('./routes');
-const {create} = require('express-handlebars');
+const route = require("./routes");
+const { create } = require("express-handlebars");
 
-const db = require('./config/db');
+const db = require("./config/db");
 //connect to databse
 db.connect();
 
 const app = express();
 
 const hbs = create({
-    // Specify helpers which are only registered on this instance.
-    extname: '.hbs',
-    helpers: {
-        getValue: (obj, idx) => obj[idx],
-        sum: (a,b) => a+b,
-    }
+  // Specify helpers which are only registered on this instance.
+  extname: ".hbs",
+  helpers: {
+    getValue: (obj, idx) => obj[idx],
+    sum: (a, b) => a + b,
+    for: (from, to, incr, block) => {
+      var accum = "";
+      for (var i = from; i < to; i += incr) accum += block.fn(i);
+
+      return accum;
+    },
+  },
 });
-app.engine('hbs', hbs.engine);
+app.engine("hbs", hbs.engine);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

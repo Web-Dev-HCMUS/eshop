@@ -46,10 +46,9 @@
         <div class="row">
             <div class="col-md-12">
                 <ul>
-                   <li ><a href="/products/query?index=0&type={{query.type}}">1</a></li>
-                    <li><a href="/products/query?index=1&type={{query.type}}">2</a></li>
-                    <li><a href="/products/query?index=2&type={{query.type}}">3</a></li>
-                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                   {{#for 0 query.page 1}}
+                      <li><a href="/products/query?index={{this}}&type={{query.type}}">{{sum this 1}}</a></li>
+                     {{/for}} 
                 </ul>
             </div>
         </div>
