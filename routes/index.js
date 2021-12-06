@@ -3,10 +3,9 @@ const detailRouter = require("./detail-product");
 const aboutRouter = require("./about");
 const contactRouter = require("./contact");
 const loginRouter = require("./login");
-// const userRouter = require("./user");
 const homeRouter = require("./home");
+const userProfile = require("./userProfile");
 const createError = require("http-errors");
-
 const userRouter = require('../components/auth/index')
 
 function route(app){
@@ -16,6 +15,7 @@ function route(app){
   app.use('/contact', contactRouter);
   app.use('/auth', userRouter);
   app.use('/login', loginRouter);
+  app.use('/userProfile', userProfile);
   app.use('/', homeRouter);
 
 // catch 404 and forward to error handler
