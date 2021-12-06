@@ -1,43 +1,39 @@
-const Product = require("../models/Product");
-const mongooseObject = require("../../ulti/mongoose");
+const Product = require('../models/Product')
+const mongooseObject = require('../../ulti/mongoose');
 
+// change limit product will show on products page
 const perPage = 6;
-let numPage = 0;
+
 class productsControlller {
-  // [Get] //query?index=&type=
-  query(req, res, next) {
-    let type = req.query.type == "" ? {} : { type: req.query.type };
-    Product.find(type).count((err, count) => {
-      numPage = count;
-      numPage = numPage / perPage;
-    });
+    // [GET] /
+    async index(req, res, next){
+        const totalDoc = await Product.find({}).count();
+        const totalPage = Math.ceil(totalDoc / perPage);
+        const currentPage = req.query.page || 1;
+        const products = await Product.find({})
+                                        .skip(perPage * (currentPage-1))
+                                        .limit(perPage);
 
-    Product.find(type)
-      .limit(perPage)
-      .skip(perPage * req.query.index)
-      .then((products) => {
-        res.render("products", {
-          products: mongooseObject.multipleMongooseToObject(products),
-          query: {
-            index: req.query.index,
-            type: type == {} ? "" : req.query.type,
-            page: numPage,
-          },
+        res.render('products', {
+            products: mongooseObject.multipleMongooseToObject(products),
+            totalPage: totalPage
         });
-      })
-      .catch((error) => console.log("error", error));
-  }
+    }
 
-  // [GET] /:type
-  // show(req, res, next) {
-  //   Product.find({ type: req.params.type })
-  //     .then((products) => {
-  //       res.render("products", {
-  //         products: mongooseObject.multipleMongooseToObject(products),
-  //       });
-  //     })
-  //     .catch((error) => next(error));
-  // }
+    // [GET] /:type
+    async show(req, res, next){
+        const totalDoc = await Product.find({ type: req.params.type}).count();
+        const totalPage = Math.ceil(totalDoc / perPage);
+        const currentPage = req.query.page || 1;
+        const products = await Product.find({ type: req.params.type})
+            .skip(perPage * (currentPage-1))
+            .limit(perPage);
+
+        res.render('products', {
+            products: mongooseObject.multipleMongooseToObject(products),
+            totalPage: totalPage
+        });
+    }
 }
 
 module.exports = new productsControlller();
