@@ -40,18 +40,54 @@
     </div>
 </div>
 
-<div class="page-navigation">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <ul>
-                    <li class="current-page"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="navigation">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link paginationStyle">First</a>
+        </li>
+
+        {{#for 1 totalPage 1}}
+            <li class="page-item">
+                <a id="page-item"
+                   class="page-link paginationStyle"
+                >{{this}}
+                </a>
+            </li>
+        {{/for}}
+
+        <li class="page-item">
+            <a class="page-link paginationStyle">Last</a>
+        </li>
+    </ul>
 </div>
+
+<script type="text/javascript">
+    let pageItem = document.querySelectorAll('#page-item');
+    let flag = 0;
+    let curr = 1;
+
+    for(let i = 0; i<pageItem.length; i++){
+        let searchParams = new URLSearchParams(window.location.search);
+
+        if(!searchParams.has('page')){
+            if(!searchParams.has('name')){
+                pageItem[i].href = location.href + '?page=' + (i + 1);
+            } else {
+                pageItem[i].href = location.href + '&page=' + (i + 1);
+            }
+        }else{
+            const result = location.href.toString().replace(/page=[0-9]/, 'page='+ (i+1))
+            pageItem[i].href = result;
+        }
+
+        if(pageItem[i].href === location.href){
+            pageItem[i].className += " activeCurrent";
+            flag = 1;
+        }
+    }
+
+    if(flag === 0){
+        pageItem[0].className += " activeCurrent";
+    }
+</script>
 <!-- Featred Page Ends Here -->

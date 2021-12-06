@@ -17,6 +17,15 @@ const hbs = create({
     helpers: {
         getValue: (obj, idx) => obj[idx],
         sum: (a,b) => a+b,
+        length: (obj) => obj.length,
+        increase: (n) => n+1,
+        getPage: (total, limit) => total % limit + 1,
+        for: function(from, to, incr, block) {
+            let accum = '';
+            for(let i = from; i <= to; i += incr)
+                accum += block.fn(i);
+            return accum;
+        },
     }
 });
 app.engine('hbs', hbs.engine);
