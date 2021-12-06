@@ -47,7 +47,11 @@
                 <li class="nav-item">
                     <a id="nav-item" class="nav-link" href="/contact">Contact Us</a>
                 <li class="nav-item">
-                    <a id="nav-item" class="nav-link" href="/login">Login</a>
+                {{#if user}}
+                    <a id="nav-item" class="nav-link" href="/auth/logout">Sign out</a>
+                {{else}}
+                    <a id="nav-item" class="nav-link" href="/login">Sign in</a>
+                {{/if}}
                 </li>
             </ul>
         </div>

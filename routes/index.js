@@ -3,10 +3,11 @@ const detailRouter = require("./detail-product");
 const aboutRouter = require("./about");
 const contactRouter = require("./contact");
 const loginRouter = require("./login");
-const userRouter = require("./user");
+// const userRouter = require("./user");
 const homeRouter = require("./home");
 const createError = require("http-errors");
 
+const userRouter = require('../components/auth/index')
 
 function route(app){
   app.use('/products', productsRouter);
