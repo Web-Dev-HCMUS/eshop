@@ -3,26 +3,30 @@
 <div class="featured-page">
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-6 col-sm-12">
                 <div class="section-heading">
                     <div class="line-dec"></div>
                     <h1>Featured Items</h1>
                 </div>
             </div>
-            <div class="col-md-4 con-sm-12">
+            <div class="col-md-6 con-sm-12">
                 <div class="input-group">
                 <input type="search" class="form-control rounded" placeholder="Bạn tìm gì..." aria-label="Search"
                 aria-describedby="search-addon" id="input-search-field" />
                 <button type="button" class="btn btn-outline-primary" onclick="handleSearch()">search</button>
             </div>
             </div>
-            <div class="col-md-auto col-sm-12">
-                <div id="filters" class="button-group">
-                    <a href="/products/iphone" class="btn btn-outline-primary">iPhone</a>
-                    <a href="/products/ipad" class="btn btn-outline-primary">iPad</a>
-                    <a href="/products/macbook" class="btn btn-outline-primary">Macbook</a>
-                    <a href="/products/watch" class="btn btn-outline-primary">Apple Watch</a>
-                </div>
+            
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class='col'></div>
+            <div class="sort col">
+                <button type="button" class="sort-btn btn btn-outline-primary" onClick="highestPrice()">Giá cao nhất</button>
+                <button type="button" class="sort-btn btn btn-outline-primary" onclick="lowestPrice()">Giá thấp nhất</button>
+
+
+
             </div>
         </div>
     </div>
@@ -104,6 +108,19 @@
             window.location.href = '/products/search?name=' + search;
         }
     }
-
+    const highestPrice=()=>{
+        const params= new URLSearchParams(window.location.search);
+        if(params.has('name')){
+            window.location.href = '/products/search?name=' + params.get('name') + '&page=1&sort=price&order=des';
+        }else{
+        window.location.href = '/products/search?name=' + '&sort=price&order=des';}
+    }
+    const lowestPrice=()=>{
+        const params= new URLSearchParams(window.location.search);
+        if(params.has('name')){
+            window.location.href = '/products/search?name=' + params.get('name') + '&page=1&sort=price&order=asc';
+        }else{
+        window.location.href = '/products/search?name=' + '&sort=price&order=asc';}
+    }
 </script>
 <!-- Featred Page Ends Here -->
