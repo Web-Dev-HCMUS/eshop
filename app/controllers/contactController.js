@@ -4,7 +4,7 @@ const mongooseObject = require('../../ulti/mongoose');
 class contactController{
     // [GET] /
     index(req, res, next){
-        res.render('contact');
+        res.render('contact',{user: req.user});
     }
 }
 
