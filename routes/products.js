@@ -5,5 +5,5 @@ const productsControlller = require("../app/controllers/productsControlller");
 
 router.get("/:type", productsControlller.show);
 router.get("/", productsControlller.index);
-
+//router.get("/?query", productsControlller.query);
 module.exports = router;

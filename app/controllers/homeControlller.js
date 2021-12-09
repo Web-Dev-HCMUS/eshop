@@ -6,7 +6,8 @@ class homeControlller {
     index(req, res, next){
         Product.find({})
             .then(products => {
-                res.render('home',{products: mongooseObject.multipleMongooseToObject(products)});
+                res.render('home',{products: mongooseObject.multipleMongooseToObject(products),
+                user: req.user});
             })
             .catch(error => next(error));
     }

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="assets/css/css-style-login.css">
+<link rel="stylesheet" href="/assets/css/css-style-login.css">
 
 <div class="login-page">
     <div class="container">
@@ -19,6 +19,11 @@
                             <div class="login-form">
                                 <div class="sign-in-htm">
                                     <form method="POST" action="/auth/login">
+                                        <div class="group">
+                                            {{#if wrongPassword}}
+                                                <p style="color: white; font-weight: 400">Username or password is incorrect !</p>
+                                            {{/if}}
+                                        </div>
                                         <div class="group">
                                             <label for="user" class="label">Username</label>
                                             <input id="user" name="username" type="text" class="input">

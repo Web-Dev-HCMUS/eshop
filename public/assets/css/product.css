@@ -1,0 +1,12 @@
+.input-group {
+  margin-top: 15px;
+}
+.sort {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 20px;
+}
+.sort-btn {
+  border-radius: 1rem;
+}

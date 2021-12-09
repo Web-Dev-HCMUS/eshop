@@ -10,7 +10,8 @@ class detailControlller {
                     .then(products2 => {
                         res.render('detail-product', {
                             product: mongooseObject.mongooseToObject(product),
-                            products2: mongooseObject.multipleMongooseToObject(products2)
+                            products2: mongooseObject.multipleMongooseToObject(products2),
+                            user: req.user
                         });
                     })
                     .catch(error => next(error));
