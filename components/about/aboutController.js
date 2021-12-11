@@ -1,4 +1,3 @@
-const mongooseObject = require('../../ulti/mongoose');
 
 class aboutController{
     // [GET] /
