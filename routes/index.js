@@ -1,6 +1,6 @@
 const productsRouter = require("./products");
 const detailRouter = require("./detail-product");
-const aboutRouter = require("./about");
+const aboutRouter = require("../components/about");
 const contactRouter = require("./contact");
 const loginRouter = require("./login");
 const homeRouter = require("./home");
