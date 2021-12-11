@@ -4,7 +4,7 @@ const aboutRouter = require("../components/about");
 const contactRouter = require("../components/contact");
 const loginRouter = require("../components/login");
 const homeRouter = require("./home");
-const userProfile = require("./userProfile");
+const userProfile = require("../components/profile");
 const createError = require("http-errors");
 const userRouter = require('../components/auth/index')
 
