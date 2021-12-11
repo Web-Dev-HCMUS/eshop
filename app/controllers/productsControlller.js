@@ -1,5 +1,4 @@
 const Product = require('../models/Product');
-
 const mongooseObject = require("../../ulti/mongoose");
 
 // change limit product will show on products page
