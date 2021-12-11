@@ -72,6 +72,7 @@ class productsControlller {
       res.render("products", {
         products: mongooseObject.multipleMongooseToObject(products),
         totalPage: totalPage,
+        user: req.user
       });
     }
   }
