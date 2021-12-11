@@ -3,6 +3,7 @@ class aboutUserProfile{
     index(req, res, next){
         if (req.user != null || req.user != undefined) {
             res.render('userProfile', {user: req.user});
+            console.log(req.user);
         }
         else{
             res.redirect('/login');

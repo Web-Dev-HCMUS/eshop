@@ -14,11 +14,12 @@ exports.logout = async function(req, res, next){
 };
 
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
+    bcrypt.hash(req.body.SIpassword, 10)
         .then((hash) => {
             const user = new User({
                 username: req.body.username,
-                password: hash
+                password: hash,
+                email: req.body.email
             });
             user.save()
                 .then(() => {

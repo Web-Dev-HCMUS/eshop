@@ -23,7 +23,7 @@ passport.serializeUser(function(user, done) {
     done(null, {
         _id: user._id,
         username : user.username,
-        fullname: user.fullname});
+        email: user.email,});
 });
 
 passport.deserializeUser(async function(user, done) {
