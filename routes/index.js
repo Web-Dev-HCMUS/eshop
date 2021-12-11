@@ -1,11 +1,11 @@
+const createError = require("http-errors");
 const productsRouter = require("./products");
 const detailRouter = require("./detail-product");
-const aboutRouter = require("./about");
-const contactRouter = require("./contact");
-const loginRouter = require("./login");
-const homeRouter = require("./home");
-const userProfile = require("./userProfile");
-const createError = require("http-errors");
+const aboutRouter = require("../components/about");
+const contactRouter = require("../components/contact");
+const loginRouter = require("../components/login");
+const homeRouter = require("../components/home");
+const userProfile = require("../components/profile");
 const userRouter = require('../components/auth/index')
 
 function route(app){

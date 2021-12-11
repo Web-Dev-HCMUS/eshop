@@ -1,5 +1,3 @@
-const Product = require('../models/Product')
-const mongooseObject = require('../../ulti/mongoose');
 
 class aboutController{
     // [GET] /
