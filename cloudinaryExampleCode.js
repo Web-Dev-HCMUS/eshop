@@ -36,7 +36,7 @@ app.post('/api/upload', (req, res, next) => {
 
   form.parse(req, (err, fields, files) => {
     cloudinary.uploader.upload(files.someExpressFiles.filepath,
-        {public_id: `iPhone/${files.someExpressFiles.originalFilename}`}, //thay đổi đường dẫn và tên file
+        {public_id: `iPhone/ip11/${files.someExpressFiles.originalFilename}`}, //thay đổi đường dẫn và tên file
         function(error, result) { console.log(result) })                  //result.url là link ảnh
     if (err) {
       next(err);

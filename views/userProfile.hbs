@@ -1,58 +1,83 @@
-<style>
-    h5{
-        margin-right: 4px;
-        min-width: 140px;
-    }
-</style>
-<div class="container d-flex flex-wrap p-4 justify-content-center align-items-center m-auto" style="margin-bottom: 80px !important;">
-    <div class="col-md-12">
-        <div class="section-heading">
-            <div class="line-dec"></div>
-            <h1>Your Profile</h1>
-        </div>
-    </div>
-    <div class="img-thumbnail rounded m-4"
-         style="width: 250px; height: 250px">
-        {{#if user.avatar}} <img src="{{user.avatar}}" width="100%" height="100%" alt="avatar">
-        {{else}} <img src="/assets/images/placeholder.png" width="100%" height="100%" alt="avatar">
-        {{/if}}
+<div class="about-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <div class="line-dec"></div>
+                    <h1>Profile</h1>
+                </div>
+            </div>
+            <div class="container justify-content-center align-items-center m-auto" style="margin-bottom: 80px !important;">
 
-    </div>
-    <div class="d-flex flex-column m-4 justify-content-around" style="min-height: 250px">
-        <div class="d-flex align-items-baseline">
-            <h5>Name: </h5>
-                {{#if user.username}} {{user.username}}
-                {{else}} No information
-                {{/if}}
 
-        </div>
-        <div class="d-flex align-items-baseline">
-            <h5>Day of birth: </h5>
-                {{#if user.birthday}} {{user.birthday}}
-                {{else}} No information
-                {{/if}}
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-12">
+                        <div class="white-box">
+                            <div class="user-bg">
+                                <img src="" alt="Img here"/>
+                                <h5>AVATAR HERE</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form class="form-horizontal form-material" method="post" action="/user-profile/{{profile._id}}">
 
-        </div>
-        <div class="d-flex align-items-baseline">
-            <h5>Address: </h5>
-                {{#if user.address}} {{user.address}}
-                {{else}} No information
-                {{/if}}
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Full Name</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" name="fullname" value="{{profile.fullname}}"
+                                                   class="form-control p-0 border-0"> </div>
+                                    </div>
 
-        </div>
-        <div class="d-flex align-items-baseline">
-            <h5>Email: </h5>
-                {{#if user.email}} {{user.email}}
-                {{else}} No information
-                {{/if}}
+                                    <div class="form-group mb-4">
+                                        <label for="example-email" class="col-md-12 p-0">Email</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="email" name="email" value="{{profile.email}}"
+                                                   class="form-control p-0 border-0" name="example-email"
+                                                   id="example-email">
+                                        </div>
+                                    </div>
 
-        </div>
-        <div class="d-flex align-items-baseline">
-            <h5>Phone number: </h5>
-                {{#if user.phone}} {{user.phone}}
-                {{else}} No information
-                {{/if}}
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Phone No</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" name="phone" value="{{profile.phone}}"
+                                                   class="form-control p-0 border-0">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Address</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" name="address" value="{{profile.address}}" class="form-control p-0 border-0">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-5 mt-5" style=" text-align: center;">
+                                        <button type="submit" class="btn btn-warning col-5">Update account</button>
+                                    </div>
+
+                                </form>
+
+                                <div class="mt-5" style="text-align: center; color: limegreen">
+                                    {{#if updateSuccess}}
+                                        <h2>Update profile successfully!</h2>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
     </div>
 </div>
+
+

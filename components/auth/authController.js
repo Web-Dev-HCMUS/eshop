@@ -1,9 +1,6 @@
-const User = require('../../app/models/User');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const authService = require('./authService');
 
-
-exports.login = async function(req, res, next){
+exports.formLogin = async function(req, res, next){
     const wrongPassword = req.query['wrong-password'] !== undefined;
     res.render('login', { wrongPassword});
 };
@@ -13,22 +10,17 @@ exports.logout = async function(req, res, next){
     res.redirect('/');
 };
 
-exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.SIpassword, 10)
-        .then((hash) => {
-            const user = new User({
-                username: req.body.username,
-                password: hash,
-                email: req.body.email
-            });
-            user.save()
-                .then(() => {
-                    res.redirect('/login')
-                })
-                .catch((error) => {
-                    res.status(500).json({
-                        error: error
-                    });
-                });
-        });
+exports.formRegister= async function(req, res, next){
+    const userExist = req.query['username-exist'] !== undefined;
+    res.render('register', {userExist});
+};
+
+exports.register = async (req, res, next) => {
+    const success = await authService.model(req.body);
+
+    if(success === false){
+        res.redirect(`/auth/register?username-exist`);
+    } else{
+        res.redirect(`/auth/login`);
+    }
 }

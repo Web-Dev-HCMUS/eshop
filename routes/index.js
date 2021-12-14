@@ -3,10 +3,10 @@ const productsRouter = require("./products");
 const detailRouter = require("./detail-product");
 const aboutRouter = require("../components/about");
 const contactRouter = require("../components/contact");
-const loginRouter = require("../components/login");
 const homeRouter = require("../components/home");
 const userProfile = require("../components/profile");
 const userRouter = require('../components/auth/index')
+const authMiddleWare = require('../middleware/authMiddleware');
 
 function route(app){
   app.use('/products', productsRouter);
@@ -14,8 +14,7 @@ function route(app){
   app.use('/about', aboutRouter);
   app.use('/contact', contactRouter);
   app.use('/auth', userRouter);
-  app.use('/login', loginRouter);
-  app.use('/userProfile', userProfile);
+  app.use('/user-profile', authMiddleWare, userProfile);
   app.use('/', homeRouter);
 
 // catch 404 and forward to error handler
