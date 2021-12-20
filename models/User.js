@@ -10,7 +10,9 @@ const User = new Schema({
     fullname: { type : String },
     address: { type : String },
     phone: { type : String },
-    status: { type : Boolean }
+    avatar: { type : String },
+    status: { type : Boolean },
+    activationString: {type: String},
 });
 
 User.plugin(uniqueValidator);
