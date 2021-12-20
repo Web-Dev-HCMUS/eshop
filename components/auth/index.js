@@ -15,6 +15,7 @@ router.get('/register', authController.formRegister);
 
 router.post('/register', authController.register);
 
+router.get('/activate', authController.activate);
 
 
 

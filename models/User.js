@@ -11,7 +11,7 @@ const User = new Schema({
     address: { type : String },
     phone: { type : String },
     avatar: { type : String },
-    status: { type : Boolean },
+    status: { type : Boolean , default: false},
     activationString: {type: String},
 });
 

@@ -24,3 +24,20 @@ exports.register = async (req, res, next) => {
         res.redirect(`/auth/login`);
     }
 }
+
+exports.activate = async (req, res, next) => {
+    const {email} = req.query;
+    const activationString = req.query['activation-string'];
+    const result = await authService.activate(email, activationString);
+    if(result){
+        const user = await authService.findByEmail(email);
+        req.login(user, function(err){
+            if(err){return next(err);}
+            return res.redirect('/');
+        });
+    }
+    else{
+        return res.redirect('/');
+
+    }
+}
