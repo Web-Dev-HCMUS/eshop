@@ -2,7 +2,12 @@ const authService = require('./authService');
 
 exports.formLogin = async function(req, res, next){
     const wrongPassword = req.query['wrong-password'] !== undefined;
-    res.render('login', { wrongPassword});
+    const notActivated = req.query['not-activated'] !== undefined;
+    if(wrongPassword){
+        res.render('login', { wrongPassword});
+    }else if(notActivated) {
+        res.render('login', { notActivated});
+    }
 };
 
 exports.logout = async function(req, res, next){
@@ -22,5 +27,22 @@ exports.register = async (req, res, next) => {
         res.redirect(`/auth/register?username-exist`);
     } else{
         res.redirect(`/auth/login`);
+    }
+}
+
+exports.activate = async (req, res, next) => {
+    const {email} = req.query;
+    const activationString = req.query['activation-string'];
+    const result = await authService.activate(email, activationString);
+    if(result){
+        const user = await authService.findByEmail(email);
+        req.login(user, function(err){
+            if(err){return next(err);}
+            return res.redirect('/');
+        });
+    }
+    else{
+        return res.redirect('/');
+
     }
 }

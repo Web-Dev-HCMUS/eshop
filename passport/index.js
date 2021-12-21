@@ -15,6 +15,13 @@ passport.use(new LocalStrategy(
         if (!isValid) {
             return done(null, false, {message: 'Incorrect password.'});
         }
+
+        const isActivate = await authService.isActivate(user);
+
+        if(!isActivate){
+            return done("notActivated", false, {message: 'Not activated!'});
+        }
+
         return done(null, user);
     }
 ));
@@ -29,5 +36,6 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(async function(user, done) {
     done(null, user);
 });
+
 
 module.exports = passport;
