@@ -21,7 +21,10 @@
                                     <form method="POST" action="/auth/login">
                                         <div class="group">
                                             {{#if wrongPassword}}
-                                                <h5 style="color: #bd2130; font-weight: 400">Username or password is incorrect !</h5>
+                                                <h5 style="color: #ff4a5c; font-weight: 400">Username or password is incorrect !</h5>
+                                            {{/if}}
+                                            {{#if notActivated}}
+                                                <h5 style="color: #ff4a5c; font-weight: 400">Your account is not activated !</h5>
                                             {{/if}}
                                         </div>
                                         <div class="group">

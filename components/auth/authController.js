@@ -2,7 +2,12 @@ const authService = require('./authService');
 
 exports.formLogin = async function(req, res, next){
     const wrongPassword = req.query['wrong-password'] !== undefined;
-    res.render('login', { wrongPassword});
+    const notActivated = req.query['not-activated'] !== undefined;
+    if(wrongPassword){
+        res.render('login', { wrongPassword});
+    }else if(notActivated) {
+        res.render('login', { notActivated});
+    }
 };
 
 exports.logout = async function(req, res, next){

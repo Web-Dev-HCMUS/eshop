@@ -7,6 +7,10 @@ const sgMail = require('../../service/sendGrid');
 exports.findByUsername = (username) => userModel.findOne({username: username}).lean();
 exports.findByEmail = (email) => userModel.findOne({email: email}).lean();
 
+exports.isActivate = (user) => {
+    return user.status;
+};
+
 exports.validPassword = (password, user) => {
     return bcrypt.compare(password,user.password);
 };
@@ -31,7 +35,7 @@ exports.model = async (user) => {
         to: user.email, // Change to your recipient
         from: process.env.EMAIL_SEND, // Change to your verified sender
         subject: 'Eshop account activation ',
-        text: ' do not reply',
+        text: 'do not reply',
         html: `<h1>Thanks for register your account with eshop.</h1></br>
         <p>Please activate your account <a href="${process.env.DOMAIN_NAME}/auth/activate?email=${user.email}&activation-string=${activationString}">Activate now!</a></p>`,
       }
