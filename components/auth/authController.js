@@ -8,6 +8,9 @@ exports.formLogin = async function(req, res, next){
     }else if(notActivated) {
         res.render('login', { notActivated});
     }
+    else{
+        res.render('login');
+    }
 };
 
 exports.logout = async function(req, res, next){
