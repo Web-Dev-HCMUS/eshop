@@ -39,7 +39,7 @@
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="email" name="email" value="{{profile.email}}"
                                                    class="form-control p-0 border-0" name="example-email"
-                                                   id="example-email">
+                                                   id="example-email" disabled>
                                         </div>
                                     </div>
 
@@ -58,17 +58,43 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">New password</label>
+                                        <div class="col-md-12 border-bottom border-danger p-0">
+                                            <input type="password" name="password" value="" class="form-control p-0 border-0" placeholder="">
+                                        </div>
+                                    </div>
+
+                                     <div class="form-group mb-4 mt-4">
+                                        <label class="col-md-12 p-0" style="color: red;">Confirm your password to complete a change in information</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="password" name="oldPassword" value=""
+                                                   class="form-control p-0 border-0" placeholder="Confirm here">
+                                        </div>
+                                    </div>
+
                                     <div class="mb-5 mt-5" style=" text-align: center;">
                                         <button type="submit" class="btn btn-warning col-5">Update account</button>
                                     </div>
 
                                 </form>
 
+    
+
                                 <div class="mt-5" style="text-align: center; color: limegreen">
                                     {{#if updateSuccess}}
                                         <h2>Update profile successfully!</h2>
                                     {{/if}}
                                 </div>
+
+                                 <div class="mt-5" style="text-align: center; color: rgb(205, 50, 50)">
+                                    {{#if updateFail}}
+                                        <h2>Update profile failed!</h2>
+                                        <h4>Please check your password again. </h4>
+                                    {{/if}}
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
