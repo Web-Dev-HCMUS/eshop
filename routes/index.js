@@ -5,7 +5,8 @@ const aboutRouter = require("../components/about");
 const contactRouter = require("../components/contact");
 const homeRouter = require("../components/home");
 const userProfile = require("../components/profile");
-const userRouter = require('../components/auth/index')
+const userRouter = require('../components/auth/index');
+const forgotPassword = require('../components/forgotPassword');
 const authMiddleWare = require('../middleware/authMiddleware');
 
 function route(app){
@@ -14,6 +15,7 @@ function route(app){
   app.use('/about', aboutRouter);
   app.use('/contact', contactRouter);
   app.use('/auth', userRouter);
+  app.use('/forgotPassword', forgotPassword);
   app.use('/user-profile', authMiddleWare, userProfile);
   app.use('/', homeRouter);
 
