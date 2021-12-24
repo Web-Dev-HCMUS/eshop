@@ -33,5 +33,4 @@ router.post('/register', authController.register);
 router.get('/activate', authController.activate);
 
 
-
 module.exports = router;
