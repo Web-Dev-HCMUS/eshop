@@ -33,7 +33,10 @@ exports.resetPassword = async (req, res, next) => {
         const pass = req.body.password;
         const update = await forgotService.resetPassword(user, pass);
         if(update){
-            res.redirect('/');
+            req.logIn(user, function(err) {
+                if (err) { return next(err); }
+                return res.redirect('/');
+              });
         }
         else{
             res.redirect('/forgotPassword?result=fail');
