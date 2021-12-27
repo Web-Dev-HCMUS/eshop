@@ -10,7 +10,7 @@ const userRouter = require("../components/auth/index");
 const cartRouter = require("../components/cart/index");
 const apiRouter = require("../api/index");
 const authMiddleWare = require("../middleware/authMiddleware");
-const forgotPassword = require('../components/forgotPassword');
+const forgotPassword = require("../components/forgotPassword");
 function route(app) {
   app.use("/products", productsRouter);
   app.use("/detail-product", detailRouter);
@@ -18,12 +18,10 @@ function route(app) {
   app.use("/contact", contactRouter);
   app.use("/auth", userRouter);
   app.use("/user-profile", authMiddleWare, userProfile);
-  app.use('/forgotPassword', forgotPassword);
+  app.use("/forgotPassword", forgotPassword);
   app.use("/cart", authMiddleWare, cartRouter); //Router for cart
   app.use("/api", apiRouter); //Router for api
   app.use("/", homeRouter);
-
-
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
