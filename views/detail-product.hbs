@@ -63,6 +63,39 @@
                 </div>
             </div>
         </div>
+
+        {{!-- Comments --}}
+        <div>
+            <div class="section-heading">
+                <div class="line-dec"></div>
+                <h1>Comments</h1>
+            </div>
+            <div>
+                <ul>
+                    {{#each comment}}
+                    <li>
+                        <div class="comment-conent">
+                            <p>{{this.content}}</p>
+                        </div>
+                        <div class="comment-info">
+                            <p>{{this.email}}</p>
+                            <p>{{this.createdAt}}</p>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="section-heading">
+                <div class="line-dec"></div>
+                <h1>Place your comment</h1>
+            </div>
+            <form class="form-group" method="post" action="/detail-product/{{product.slug}}/comment">
+                <input class="form-control p-2" type="text" name="contentC" id="contentC" placeholder="Place your comment here!">
+                <input class="btn mt-2 p-2" style="float: right;" type="submit" value="Comment">
+            </form>
+        </div>
     </div>
 </div>
 <!-- Single Page Ends Here -->

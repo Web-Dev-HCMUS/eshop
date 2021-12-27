@@ -1,6 +1,6 @@
 const createError = require("http-errors");
 const productsRouter = require("./products");
-const detailRouter = require("./detail-product");
+const detailRouter = require("../components/detailProduct");
 const aboutRouter = require("../components/about");
 const contactRouter = require("../components/contact");
 const homeRouter = require("../components/home");
