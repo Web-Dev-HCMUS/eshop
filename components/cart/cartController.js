@@ -39,21 +39,36 @@ class cartController {
       return;
     } else {
       const user = req.user._id;
-      let cartID = await cartService.findCartIdbyUserId(user);
+      let cart = await cartService.getCartById(user);
       let content = req.body;
-      if (!cartID) {
-        cartID = new mongoose.Types.ObjectId();
+      if (!cart) {
+        const cartID = new mongoose.Types.ObjectId();
         const createNewCart = await cartService.createNewCart(
           cartID,
           user,
           content
         );
       } else {
-        const addItemToCart = await cartService.addItemToCart(cartID, content);
-        if (addItemToCart) {
+        let existQuantity = content.quantity;
+        cart.products.filter((item) => {
+          if (
+            mongoose.Types.ObjectId(item.productId).toString() ===
+            mongoose.Types.ObjectId(content.productId).toString()
+          ) {
+            existQuantity = parseInt(item.quantity) + parseInt(existQuantity);
+          }
+        });
+        let result = false;
+        if (existQuantity !== content.quantity) {
+          content.quantity = existQuantity;
+          result = await cartService.updateItem(cart._id, content);
+        } else {
+          result = await cartService.addItemToCart(cart._id, content);
+        }
+        if (result) {
           res
             .status(200)
-            .json({ message: "Item added to cart", success: true });
+            .json({ message: "Item is added to cart", success: true });
         } else {
           res
             .status(500)
@@ -75,11 +90,12 @@ class cartController {
       if (result) {
         res
           .status(200)
-          .json({ message: "Item removed from cart", success: true });
+          .json({ message: "Item is removed from cart", success: true });
       } else {
-        res
-          .status(500)
-          .json({ message: "Error removing item from cart", success: true });
+        res.status(500).json({
+          message: "Error when removing item from cart",
+          success: true,
+        });
       }
     }
   }

@@ -74,3 +74,18 @@ exports.removeItem = async (cartId, productId) => {
   result = result.modifiedCount === 0 ? false : true;
   return result;
 };
+exports.updateItem = async (cartId, content) => {
+  let result = await Cart.updateOne(
+    {
+      _id: new mongoose.Types.ObjectId(cartId),
+      "products.productId": new mongoose.Types.ObjectId(content.productId),
+    },
+    {
+      $set: {
+        "products.$.quantity": content.quantity,
+      },
+    }
+  );
+  result = result.modifiedCount === 0 ? false : true;
+  return result;
+};
