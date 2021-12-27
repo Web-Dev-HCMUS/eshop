@@ -28,7 +28,7 @@ class cartController {
         cartId: mongoose.Types.ObjectId(cart._id).toString(),
         numberOfItems: userItems.length,
         userItems: userItems,
-        orderTotal: orderTotal.toLocaleString().split(",").join(""),
+        orderTotal: orderTotal.toLocaleString().split(",").join("."),
       };
 
       res.render("cart", { userCart });
