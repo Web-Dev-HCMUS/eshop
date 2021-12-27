@@ -17,8 +17,9 @@ class cartController {
         let firstImage = product.image[0];
         product.image = firstImage;
         product.quantity = item[i].quantity;
-        let totalPrice =
-          item[i].quantity * parseInt(product.price.replaceAll(".", ""));
+
+        let price = product.price.replaceAll(".", "");
+        let totalPrice = item[i].quantity * parseInt(price);
         orderTotal = orderTotal + totalPrice;
         product.totalPrice = totalPrice.toLocaleString();
         userItems.push(product);
