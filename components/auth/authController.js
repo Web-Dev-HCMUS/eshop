@@ -25,7 +25,6 @@ exports.formRegister= async function(req, res, next){
 
 exports.register = async (req, res, next) => {
     const success = await authService.model(req.body);
-
     if(success === false){
         res.redirect(`/auth/register?username-exist`);
     } else{

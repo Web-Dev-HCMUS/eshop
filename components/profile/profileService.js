@@ -11,7 +11,8 @@ exports.updateOneFromDatabase = async (req) => {
 
     // console.log(typeof req.body.password)
     if(req.body.password === ""){
-        req.body.password = req.body.oldPassword;
+        req.body.password = await bcrypt.hash(req.body.oldPassword, 10);
+        // req.body.password = req.body.oldPassword;
     }
     else {
         req.body.password = await bcrypt.hash(req.body.password, 10);
