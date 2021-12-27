@@ -21,7 +21,7 @@ class cartController {
         let price = product.price.split(".").join("");
         let totalPrice = item[i].quantity * parseInt(price);
         orderTotal = orderTotal + totalPrice;
-        product.totalPrice = totalPrice.toLocaleString();
+        product.totalPrice = totalPrice.toLocaleString().split(",").join(".");
         userItems.push(product);
       }
       const userCart = {
