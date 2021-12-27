@@ -8,7 +8,7 @@ class cartController {
       return;
     } else {
       const userId = req.user._id;
-      const cart = await cartService.getCart(userId);
+      const cart = await cartService.getCartById(userId);
       const item = cart.products;
       let userItems = [];
       let orderTotal = 0;
@@ -24,6 +24,7 @@ class cartController {
         userItems.push(product);
       }
       const userCart = {
+        cartId: mongoose.Types.ObjectId(cart._id).toString(),
         numberOfItems: userItems.length,
         userItems: userItems,
         orderTotal: orderTotal.toLocaleString(),
@@ -38,7 +39,7 @@ class cartController {
       return;
     } else {
       const user = req.user._id;
-      let cartID = await cartService.findCartbyUserId(user);
+      let cartID = await cartService.findCartIdbyUserId(user);
       let content = req.body;
       if (!cartID) {
         cartID = new mongoose.Types.ObjectId();
@@ -58,6 +59,27 @@ class cartController {
             .status(500)
             .json({ message: "Error adding item to cart", success: true });
         }
+      }
+    }
+  }
+  async remove(req, res, next) {
+    if (!req.user) {
+      res.status(401).json({ message: "You must be logged in to add to cart" });
+      return;
+    } else {
+      let content = req.body;
+      let result = await cartService.removeItem(
+        req.body.cartId,
+        req.body.productId
+      );
+      if (result) {
+        res
+          .status(200)
+          .json({ message: "Item removed from cart", success: true });
+      } else {
+        res
+          .status(500)
+          .json({ message: "Error removing item from cart", success: true });
       }
     }
   }

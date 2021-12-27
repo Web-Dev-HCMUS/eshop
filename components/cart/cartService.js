@@ -30,7 +30,7 @@ exports.addItemToCart = async (cartId, content) => {
   result = result.modifiedCount === 0 ? false : true;
   return result;
 };
-exports.findCartbyUserId = async (userId) => {
+exports.findCartIdbyUserId = async (userId) => {
   const cart = await Cart.findOne({
     userId: new mongoose.Types.ObjectId(userId),
   });
@@ -39,7 +39,7 @@ exports.findCartbyUserId = async (userId) => {
   return cartId;
 };
 
-exports.getCart = async (userId) => {
+exports.getCartById = async (userId) => {
   const cart = await Cart.findOne({
     userId: new mongoose.Types.ObjectId(userId),
   });
@@ -52,4 +52,25 @@ exports.findProduct = async (productId) => {
   });
   const productObject = util.mongooseToObject(product);
   return productObject;
+};
+exports.getCart = async (cartId) => {
+  const cart = await Cart.findOne({
+    _id: new mongoose.Types.ObjectId(cartId),
+  });
+  const cartObject = util.mongooseToObject(cart);
+  return cartObject;
+};
+exports.removeItem = async (cartId, productId) => {
+  let result = await Cart.updateOne(
+    { _id: new mongoose.Types.ObjectId(cartId) },
+    {
+      $pull: {
+        products: {
+          productId: new mongoose.Types.ObjectId(productId),
+        },
+      },
+    }
+  );
+  result = result.modifiedCount === 0 ? false : true;
+  return result;
 };

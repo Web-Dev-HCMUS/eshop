@@ -1,25 +1,22 @@
+
 <div class="cart_section">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
                 <div class="cart_container">
                     <div class="cart_title">Shopping Cart<small> ({{userCart.numberOfItems}} item in your cart) </small></div>
+                    <div id="cartId" style="display:none">{{userCart.cartId}}</div>
                     <div class="cart_items">
                         <ul class="cart_list">
                             {{#each userCart.userItems}}
-                            <li class="cart_item clearfix">
-                                
+                            <li class="cart_item clearfix">                                
                                 <div class="cart_item_image"><img src="{{this.image}}" alt=""></div>
                                 <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                                     
                                     <div class="cart_item_name cart_info_col">
                                         <div class="cart_item_title">Name</div>
                                         <div class="cart_item_text">{{this.name}}</div>
-                                    </div>
-                                    {{!-- <div class="cart_item_color cart_info_col">
-                                        <div class="cart_item_title">Color</div>
-                                        <div class="cart_item_text"><span style="background-color:#999999;"></span>Silver</div>
-                                    </div> --}}
+                                    </div>                                    
                                     <div class="cart_item_quantity cart_info_col">
                                         <div class="cart_item_title">Quantity</div>
                                         <div class="cart_item_text">{{this.quantity}}</div>
@@ -31,6 +28,10 @@
                                     <div class="cart_item_total cart_info_col">
                                         <div class="cart_item_title">Total</div>
                                         <div class="cart_item_text">{{this.totalPrice}} Đ</div>
+                                    </div>
+                                    <div class="cart_remove_item cart_info_col">
+                                        <div class="cart_item_title"></div>
+                                        <button type='button' onclick='remove("{{this._id}}")' class='cart_item_text btn btn-light'>Remove</button>
                                     </div>
                                    
                                 </div>
@@ -45,17 +46,31 @@
                             <div class="order_total_amount">{{userCart.orderTotal}} Đ</div>
                         </div>
                     </div>
-                    <div class="cart_buttons"> <button type="submit" id="continue"class="button cart_button_clear">Continue Shopping</button> <button type="button" id="checkout" class="button cart_button_checkout">Check out</button> </div>
+                    <div class="cart_buttons"> <button type="submit" class="button cart_button_clear">Continue Shopping</button> <button type="button" id="checkout" class="button cart_button_checkout">Check out</button> </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
+<script typr="text/javascript">
+    const remove=(id)=>{
+        const cartId=document.getElementById('cartId').innerHTML;
+        console.log('remove',cartId,id);
+        $.post('api/cart/remove',{cartId:cartId,productId:id},(data)=>{
+            if(data.success){
+                alert(data.message);
+                window.location.href='/cart';
+            }else{
+                alert(data.message);
+            }
+        })
+    }
     document.getElementById("continue").addEventListener("click", function(){
         window.location.href = "/";
-    });
+    })
+
     document.getElementById("checkout").addEventListener("click", function(){
         window.location.href = "/";
-    });
+    })
+    
 </script>
