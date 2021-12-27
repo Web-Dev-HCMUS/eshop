@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --inspect ./bin/www",
-    "start:dev": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
   },
   "dependencies": {
     "@sendgrid/mail": "^7.6.0",
