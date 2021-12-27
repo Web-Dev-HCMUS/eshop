@@ -18,16 +18,18 @@
                                         <div class="cart_item_text">{{this.name}}</div>
                                     </div>                                    
                                     <div class="cart_item_quantity cart_info_col">
-                                        <div class="cart_item_title">Quantity</div>
-                                        <div class="cart_item_text">{{this.quantity}}</div>
+                                        <div class="cart_item_title ">Quantity</div>
+                                        {{!-- <div class="cart_item_text">{{this.quantity}}</div> --}}
+                                        <input class="form-control cart_item_text quantity" 
+                                        type="number" value="{{this.quantity}}" min="1" onchange='updateQuantity(this.value,"{{this._id}}")'>
                                     </div>
                                     <div class="cart_item_price cart_info_col">
                                         <div class="cart_item_title">Price</div>
-                                        <div class="cart_item_text">{{this.price}} Đ</div>
+                                        <div class="cart_item_text" id='price{{this._id}}'>{{this.price}} Đ</div>
                                     </div>
                                     <div class="cart_item_total cart_info_col">
                                         <div class="cart_item_title">Total</div>
-                                        <div class="cart_item_text">{{this.totalPrice}} Đ</div>
+                                        <div class="cart_item_text" id="totalPrice{{this._id}}">{{this.totalPrice}} Đ</div>
                                     </div>
                                     <div class="cart_remove_item cart_info_col">
                                         <div class="cart_item_title"></div>
@@ -43,7 +45,7 @@
                     <div class="order_total">
                         <div class="order_total_content text-md-right">
                             <div class="order_total_title">Order Total:</div>
-                            <div class="order_total_amount">{{userCart.orderTotal}} Đ</div>
+                            <div class="order_total_amount"id="orderTotal">{{userCart.orderTotal}} Đ</div>
                         </div>
                     </div>
                     <div class="cart_buttons"> <button type="submit" class="button cart_button_clear">Continue Shopping</button> <button type="button" id="checkout" class="button cart_button_checkout">Check out</button> </div>
@@ -53,6 +55,34 @@
     </div>
 </div>
 <script typr="text/javascript">
+    const updateQuantity=(value,id)=>{
+        let price=document.getElementById(`price${id}`).innerHTML
+        price=parseInt(price.replace(' Đ','').replaceAll('.',''))
+
+        let totalPrice=document.getElementById(`totalPrice${id}`).innerHTML
+        totalPrice=parseInt(totalPrice.replace(' Đ','').replaceAll('.',''))
+        console.log('totalPrice',totalPrice)
+
+        newTotalPrice=price*value;
+        document.getElementById('totalPrice'+id).innerHTML=`${newTotalPrice.toLocaleString().replaceAll(',','.')} Đ`
+
+        let currentOrderTotal=document.getElementById('orderTotal').innerHTML
+        currentOrderTotal=parseInt(currentOrderTotal.replace(' Đ','').replaceAll('.',''))
+
+        let newOrderTotal=currentOrderTotal-totalPrice+newTotalPrice
+        document.getElementById('orderTotal').innerHTML=`${newOrderTotal.toLocaleString().replaceAll(',','.')} Đ`
+        console.log('newOrderTotal',newOrderTotal)
+
+        const cartId=document.getElementById('cartId').innerHTML
+        $.post('api/cart/updateQuantity',{
+            cartId:cartId,
+            productId:id,
+            quantity:value
+        },(data)=>{
+            console.log('Update success')
+        })
+    }
+   
     const remove=(id)=>{
         const cartId=document.getElementById('cartId').innerHTML;
         console.log('remove',cartId,id);
@@ -73,4 +103,5 @@
         window.location.href = "/";
     })
     
+
 </script>

@@ -189,3 +189,7 @@ ul {
   cursor: pointer;
   vertical-align: top;
 }
+.quantity {
+  width: 50%;
+  margin-top: 20px;
+}

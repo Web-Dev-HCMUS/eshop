@@ -99,5 +99,21 @@ class cartController {
       }
     }
   }
+
+  async updateQuantity(req, res, next) {
+    const content = {
+      productId: req.body.productId,
+      quantity: req.body.quantity,
+    };
+    const cartId = req.body.cartId;
+    const result = await cartService.updateItem(cartId, content);
+    if (result) {
+      res.status(200).json({ message: "Quantity is updated", success: true });
+    } else {
+      res
+        .status(500)
+        .json({ message: "Error when updating quantity", success: true });
+    }
+  }
 }
 module.exports = new cartController();
