@@ -39,6 +39,7 @@
             </div>
             <div class="col-md-6">
                 <div class="right-content">
+                    <div id="productId" style="display: none;">{{product._id}}</div>
                     <h4>{{product.name}}</h4>
                     <h6>{{product.price}}</h6>
                     <p>{{product.description}} </p>
@@ -49,7 +50,7 @@
                                onfocus="if(this.value == '1') { this.value = ''; }"
                                onBlur="if(this.value == '') { this.value = '1';}"
                                value="1">
-                        <input type="submit" class="button" value="Order Now!">
+                        <input type="submit" class="button"id='addToCart' value="Order Now!">
                     </form>
                     <div class="down-content">
                         <div class="categories">
@@ -96,3 +97,27 @@
     </div>
 </div>
 <!-- Similar Ends Here -->
+<script type="text/javascript">
+    
+    document.getElementById('addToCart').addEventListener('click',(event)=>{
+        event.preventDefault();
+       
+        let quantity = document.getElementById('quantity').value;
+        let productId = document.getElementById('productId').innerHTML;
+        console.log(quantity);
+        console.log(productId);
+        $.post('/api/cart/add',{
+            productId:productId,
+            quantity:quantity
+        },(data)=>{
+            console.log(data);
+            if(data.success){
+               
+                alert(data.message);
+            }
+        }).fail((err)=>{
+            alert(data.message);
+            window.location.href = '/auth/login';
+        });
+    })
+</script>
