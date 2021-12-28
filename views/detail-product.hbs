@@ -195,25 +195,30 @@
         });
     })
 
-
     //detail product comment
     $('#comment-submit-btn').on('click', function (event){
         event.preventDefault();
-        $.post(`/api/product/${$('#productComemtId').val()}/comment`, {
-            content: $('#comment-content').val(),
 
-        }, function (data){
-            const commentTemplate = Handlebars.compile(
-                document.getElementById("comment-template").innerHTML);
-                const commentHTML = commentTemplate(data);
+        if($('#comment-content').val().length > 1){
+            $.post(`/api/product/${$('#productComemtId').val()}/comment`, {
+                content: $('#comment-content').val(),
 
-                $('#comment-list').prepend(commentHTML);
-                $('#comment-content').val(" ");
-        }).fail(function(data){
-            if(data.status === 401){
-                window.location.href = `/auth/login?redirect=detail-product/${$('#productComemtId').val()}`;
-            }
-        })
+            }, function (data){
+                const commentTemplate = Handlebars.compile(
+                    document.getElementById("comment-template").innerHTML);
+                    const commentHTML = commentTemplate(data);
+
+                    $('#comment-list').prepend(commentHTML);
+                    $('#comment-content').val(" ");
+            }).fail(function(data){
+                if(data.status === 401){
+                    window.location.href = `/auth/login?redirect=detail-product/${$('#productComemtId').val()}`;
+                }
+            })
+        }
+        else{
+            alert('Comment is empty!')
+        }
     })
 
 </script>

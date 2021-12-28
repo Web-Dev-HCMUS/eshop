@@ -13,6 +13,8 @@ class detailProductService{
 
 
     postComment(email, product, content){
+        if(content.length < 2) return;
+        
         return new Comment({
             email: email,
             productId: product,
