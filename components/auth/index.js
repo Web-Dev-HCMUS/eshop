@@ -13,15 +13,20 @@ router.get('/login', authController.formLogin);
 
 router.post('/login',  function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
-        if(err == "notActivated"){ return res.redirect('/auth/login?not-activated'); }
-      if (err) { return next(err); }
-      if (!user) { return res.redirect('/auth/login?wrong-password'); }
+    if(err == "notActivated"){ return res.redirect('/auth/login?not-activated'); }
+    if (err) { return next(err); }
+    if (!user) { return res.redirect('/auth/login?wrong-password'); }
 
-      req.logIn(user, function(err) {
-        if (err) { return next(err); }
-        return res.redirect('/');
-      });
-    })(req, res, next);
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      if(req.body.isComment !== undefined){
+        const isComment = req.body.isComment;
+        return res.redirect(`/${isComment}`);
+      }
+
+      return res.redirect('/');
+    });
+  })(req, res, next);
 });
 
 router.get('/logout', authController.logout);

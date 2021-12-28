@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/assets/css/flex-slider.css">
 <link rel="stylesheet" href="/assets/css/owl.css">
+<link rel="stylesheet" href="/assets/css/comment.css">
 <script src="/vendor/jquery/jquery.min.js"></script>
 <!-- Page Content -->
 <!-- Single Starts Here -->
@@ -71,16 +72,27 @@
                 <h1>Comments</h1>
             </div>
             <div>
-                <ul>
-                    {{#each comment}}
-                    <li>
-                        <div class="comment-conent">
-                            <p>{{this.content}}</p>
+                <ul class="d-flex flex-column">
+                    <li id="comment-list"><p class="d-none">Nothing here!</p></li>
+
+                    {{#each comment}}                    
+                    <li id="comment-list">
+                        <div class="card p-3 mt-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="user d-flex flex-row align-items-center"> 
+                                    <img src="/assets/images/placeholder.png" width="30" class="user-img rounded-circle mr-2"> 
+                                    <span>
+                                        <small class="font-weight-bold text-primary font-med">{{this.email}}: </small> 
+                                        <small class="font-weight-bold font-med">{{this.content}} </small>
+                                    </span> </div> 
+                                    <small>{{this.createdAt}}</small>
+                            </div>
+                            <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
+                                <div class="icons align-items-center"> <i class="fa fa-check-circle-o check-icon text-primary"></i> </div>
+                            </div>
                         </div>
-                        <div class="comment-info">
-                            <p>{{this.email}}</p>
-                            <p>{{this.createdAt}}</p>
-                        </div>
+
                     </li>
                     {{/each}}
                 </ul>
@@ -91,9 +103,10 @@
                 <div class="line-dec"></div>
                 <h1>Place your comment</h1>
             </div>
-            <form class="form-group" method="post" action="/detail-product/{{product.slug}}/comment">
-                <input class="form-control p-2" type="text" name="contentC" id="contentC" placeholder="Place your comment here!">
-                <input class="btn mt-2 p-2" style="float: right;" type="submit" value="Comment">
+            <form class="form-group" method="post" action="" id="comment-form">       <!---/detail-product/{{product.slug}}/comment -->
+                <input type="hidden" name="productComemtId" id="productComemtId" value="{{product.slug}}">
+                <input id="comment-content" class="form-control p-2" type="text" name="contentC" id="contentC" placeholder="Place your comment here!">
+                <input class="btn mt-2 p-2" id="comment-submit-btn" style="float: right;" type="submit" value="Comment">
             </form>
         </div>
     </div>
@@ -130,8 +143,36 @@
     </div>
 </div>
 <!-- Similar Ends Here -->
+
+<script id="comment-template" type="text/x-handlebars">
+    <li>
+        {{!-- <div class="comment-conent">
+            <p>\{{content}}</p>
+        </div>
+        <div class="comment-info">
+            <p>\{{email}}</p>
+            <p>\{{createdAt}}</p>
+        </div> --}}
+     
+        <div class="card p-3 mt-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="user d-flex flex-row align-items-center"> 
+                    <img src="/assets/images/placeholder.png" width="30" class="user-img rounded-circle mr-2"> 
+                    <span>
+                        <small class="font-weight-bold text-primary font-med">\{{this.email}}</small> 
+                        <small class="font-weight-bold font-med">\{{this.content}} </small>
+                    </span> </div> 
+                    <small>\{{this.createdAt}}</small>
+            </div>
+            <div class="action d-flex justify-content-between mt-2 align-items-center">
+                <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
+                <div class="icons align-items-center"> <i class="fa fa-check-circle-o check-icon text-primary"></i> </div>
+            </div>
+        </div>
+    </li>   
+</script>
+
 <script type="text/javascript">
-    
     document.getElementById('addToCart').addEventListener('click',(event)=>{
         event.preventDefault();
        
@@ -153,4 +194,27 @@
             window.location.href = '/auth/login';
         });
     })
+
+
+    //detail product comment
+    $('#comment-submit-btn').on('click', function (event){
+        event.preventDefault();
+        $.post(`/api/product/${$('#productComemtId').val()}/comment`, {
+            content: $('#comment-content').val(),
+
+        }, function (data){
+            const commentTemplate = Handlebars.compile(
+                document.getElementById("comment-template").innerHTML);
+                const commentHTML = commentTemplate(data);
+
+                $('#comment-list').prepend(commentHTML);
+                $('#comment-content').val(" ");
+        }).fail(function(data){
+            if(data.status === 401){
+                window.location.href = `/auth/login?redirect=detail-product/${$('#productComemtId').val()}`;
+            }
+        })
+    })
+
 </script>
+

@@ -3,14 +3,29 @@ const authService = require('./authService');
 exports.formLogin = async function(req, res, next){
     const wrongPassword = req.query['wrong-password'] !== undefined;
     const notActivated = req.query['not-activated'] !== undefined;
-    if(wrongPassword){
-        res.render('login', { wrongPassword});
-    }else if(notActivated) {
-        res.render('login', { notActivated});
-    }
-    else{
-        res.render('login');
-    }
+
+    let comment = req.query['redirect'];
+    const isComment = comment !== undefined;
+    comment = {comment}
+
+    if(!isComment){
+        if(wrongPassword){
+            res.render('login', { wrongPassword});
+        }else if(notActivated) {
+            res.render('login', { notActivated});
+        }
+        else{
+            res.render('login');
+        }}
+    else {
+        if(wrongPassword){
+            res.render('login', { wrongPassword, comment});
+        }else if(notActivated) {
+            res.render('login', { notActivated, comment});
+        }
+        else{
+            res.render('login', comment);
+        }}
 };
 
 exports.logout = async function(req, res, next){
