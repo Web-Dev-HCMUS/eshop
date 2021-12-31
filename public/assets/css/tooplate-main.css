@@ -41,7 +41,7 @@ a {
   opacity: 0.7;
 }
 .section-heading {
-  margin-top: 80px;
+  margin-top: 20px;
   margin-bottom: 40px;
 }
 .section-heading .line-dec {
@@ -165,6 +165,7 @@ a {
 }
 /* Featured Style */
 .featured-items {
+  margin-top: 80px;
   margin-bottom: 70px;
 }
 .featured-item {
@@ -346,7 +347,7 @@ a {
 
 /* Featured Page Style */
 .featured-page {
-  margin-top: 130px;
+  margin-top: 20px;
   margin-bottom: 40px;
 }
 .featured-page .section-heading {
@@ -559,7 +560,7 @@ a {
 
 /* About Us Style */
 .about-page {
-  margin-top: 50px;
+  margin-top: 10px;
   margin-bottom: 80px;
 }
 .about-page .right-content h4 {
@@ -604,7 +605,7 @@ a {
 
 /* Contact Page Style */
 .contact-page {
-  margin-top: 50px;
+  margin-top: 10px;
   margin-bottom: 80px;
 }
 .contact-page .right-content input,
@@ -674,7 +675,7 @@ a {
 /* Login Page Style */
 .login-page {
   color: #fff;
-  margin-top: 50px;
+  margin-top: 10px;
   margin-bottom: 80px;
 }
 
@@ -716,25 +717,44 @@ a {
     text-align: right;
   }
   .single-product .right-content {
-    margin-top: 30px;
+    margin-top: 20px;
   }
   .about-page .right-content {
-    margin-top: 30px;
+    margin-top: 20px;
   }
   .contact-page .right-content {
-    margin-top: 30px;
+    margin-top: 10px;
   }
   .contact-page .right-content .col-md-6,
   .contact-page .right-content .col-md-12 {
     padding: 0px;
   }
   .featured-page {
-    margin-top: 80px;
+    margin-top: 20px;
   }
   .about-page,
   .contact-page {
     margin-top: 0px;
   }
+}
+
+.wrapper{
+  position: relative;
+  font-size: 35px;
+  text-align: end;
+  padding-right: 10%;
+  padding-top: 20px;
+}
+.wrapper .cart a{
+  margin-right: 10px;
+}
+.wrapper .cart span{
+  font-size: 20px;
+  background: #ff0000;
+  color: #fff;
+  padding: 0 10px;
+  border-radius: 30%;
+  vertical-align: top;
 }
 
 /*pagination*/

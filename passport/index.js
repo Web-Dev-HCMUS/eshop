@@ -27,10 +27,12 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function(user, done) {
+    console.log(user);
     done(null, {
         _id: user._id,
         username : user.username,
-        email: user.email,});
+        email: user.email,
+        name: user.name});
 });
 
 passport.deserializeUser(async function(user, done) {

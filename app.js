@@ -42,15 +42,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(session({ secret: "cats" }));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({
+    secret: "my-super-secret-key",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {maxAge: 60000}}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req,res,next){
     res.locals.user = req.user;
     next();
-})
+});
+
+app.get('*', function (req, res, next){
+    res.locals.cart = req.session.cart;
+    res.locals.totalOrderPrice = req.session.totalOrderPrice;
+    next();
+});
+
 
 //Handle route
 route(app);

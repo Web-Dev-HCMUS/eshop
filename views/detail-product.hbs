@@ -51,7 +51,8 @@
                                onfocus="if(this.value == '1') { this.value = ''; }"
                                onBlur="if(this.value == '') { this.value = '1';}"
                                value="1">
-                        <input type="submit" class="button"id='addToCart' value="Order Now!">
+                        <a href="/cart/add/{{product._id}}" class="button" id="addToCart">Add to Cart
+                        </a>
                     </form>
                     <div class="down-content">
                         <div class="categories">
@@ -173,27 +174,13 @@
 </script>
 
 <script type="text/javascript">
-    document.getElementById('addToCart').addEventListener('click',(event)=>{
+    $('#addToCart').on('click', function (event) {
         event.preventDefault();
-       
-        let quantity = document.getElementById('quantity').value;
-        let productId = document.getElementById('productId').innerHTML;
-        console.log(quantity);
-        console.log(productId);
-        $.post('/api/cart/add',{
-            productId:productId,
-            quantity:quantity
-        },(data)=>{
+        $.get(`/cart/add/{{product._id}}`, function(data){
+            document.getElementById('cartQuantity').innerHTML = data.cart.length;
             console.log(data);
-            if(data.success){
-               
-                alert(data.message);
-            }
-        }).fail((err)=>{
-            alert(data.message);
-            window.location.href = '/auth/login';
         });
-    })
+    });
 
     //detail product comment
     $('#comment-submit-btn').on('click', function (event){
@@ -219,7 +206,7 @@
         else{
             alert('Comment is empty!')
         }
-    })
+    });
 
 </script>
 

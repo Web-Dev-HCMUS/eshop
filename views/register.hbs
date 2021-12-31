@@ -1,64 +1,69 @@
-<link rel="stylesheet" href="/assets/css/css-style-login.css">
-
 <div class="login-page">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="section-heading">
                     <div class="line-dec"></div>
-                    <h1>Login / Sign up</h1>
+                    <h1>Register</h1>
                 </div>
             </div>
 
-            <div class="container">
-                <div class="col-md-12">
-                    <div class="login-wrap">
-                        <div class="login-html">
-                            <input type="radio" name="tab" class="sign-in" ><label  class="tab"></label>
-                            <input type="radio" name="tab" class="sign-up" checked><label class="tab">REGISTER</label>
-                            <div class="login-form">
-                                <div class="sign-up-htm">
-                                    <form method="POST" action="/auth/register">
-                                        <div class="group">
-                                            {{#if userExist}}
-                                                <h5 style="color: #ff4a5c; font-weight: 400">Username or email is existing !</h5>
-                                            {{/if}}
-                                        </div>
-                                        <div class="group">
-                                            <label for="user" class="label">Username</label>
-                                            <input id="user" name="username" type="text" class="input" required>
-                                        </div>
-
-                                        <div class="group">
-                                            <label for="pass" class="label">Email Address</label>
-                                            <input id="pass" name="email" type="email" class="input" required>
-                                        </div>
-
-                                        <div class="group">
-                                            <label for="pass" class="label">Password</label>
-                                            <input id="pass" name="password" type="password" class="input"
-                                                   data-type="password" required onChange="onChange()">
-                                        </div>
-                                        <div class="group">
-                                            <label for="re-pass" class="label">Repeat Password</label>
-                                            <input id="re-pass" name="re-password" type="password" class="input"
-                                                   data-type="password" required onChange="onChange()">
-                                        </div>
-
-                                        <div class="group">
-                                            <input type="submit" class="button mt-5" value="Sign Up" id="submit">
-                                        </div>
-                                        <div class="hr"></div>
-                                    </form>
-
-                                </div>
+            <div class="container mt-4 login-form">
+                <div class="row mb-3">
+                    <div class="col-md-6 offset-md-3 shadow" style="background-color: wheat;
+                                            margin-bottom: 20px;padding-bottom: 30px;">
+                        <form class="p-4"  action="/auth/register" method="post" >
+                            <div class="mb-3" style="color: black; font-size: 30px">
+                                <h1>Register</h1>
                             </div>
+
+                            {{#if userExist}}
+                                <div class="mb-3" style="text-align: center; color:red;font-size: 20px">
+                                    Username or email is existing !
+                                </div>
+                            {{/if}}
+                            {{#if validate}}
+                                <div class="mb-3" style="text-align: center; color:#0eb20e;font-size: 20px">
+                                    Register success, Please check your email to validate account!
+                                </div>
+                            {{/if}}
+                            <div class="mb-3">
+                                <label for="username" style="color: black; font-size: 20px">Username</label>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" style="color: black; font-size: 20px">Email Address</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="username" style="color: black; font-size: 20px">Your Name</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Your name" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="pass"style="color: black; font-size: 20px">Password</label>
+                                <input type="password" class="form-control" id="pass" name="password"
+                                       data-type="password" placeholder="Password" required onChange="onChange()">
+                            </div>
+                            <div class="mb-4">
+                                <label for="re-pass" style="color: black; font-size: 20px">Repeat Password</label>
+                                <input type="password" class="form-control" id="re-pass" name="re-password"
+                                       data-type="password" placeholder="Repeat Password" required onChange="onChange()">
+                            </div>
+
+                            <div class="mb-3" style=" text-align: center;margin-top: 46px;">
+                                <button type="submit" class="btn btn-success col-md-12 ">Register</button>
+                            </div>
+                            <hr>
+                        </form>
+                        <div class="foot-lnk mb3" style="color: black; text-align: center; font-size: 20px">
+                            If you have account, let's <a href="/auth/login">Sign in</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>

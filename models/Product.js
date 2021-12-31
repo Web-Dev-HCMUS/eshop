@@ -7,9 +7,9 @@ const Product = new Schema(
   {
     _id: { type: Schema.Types.ObjectId },
     name: { type: String, required: true },
-    price: { type: String },
+    price: { type: Number },
     description: { type: String },
-    stock: { type: String },
+    stock: { type: Number },
     slug: { type: String, slug: "name", unique: true },
     image: { type: Array },
     type: { type: String },

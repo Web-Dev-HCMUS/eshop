@@ -35,7 +35,8 @@ exports.logout = async function(req, res, next){
 
 exports.formRegister= async function(req, res, next){
     const userExist = req.query['username-exist'] !== undefined;
-    res.render('register', {userExist});
+    const validate = req.query['validate-account'] !== undefined;
+    res.render('register', {userExist, validate});
 };
 
 exports.register = async (req, res, next) => {
@@ -43,7 +44,7 @@ exports.register = async (req, res, next) => {
     if(success === false){
         res.redirect(`/auth/register?username-exist`);
     } else{
-        res.redirect(`/auth/login`);
+        res.redirect(`/auth/register?validate-account`);
     }
 }
 

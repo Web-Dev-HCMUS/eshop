@@ -28,25 +28,38 @@
                                 <form class="form-horizontal form-material" method="post" action="/user-profile/{{profile._id}}">
 
                                     <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">Full Name</label>
+                                        <label class="col-md-12 p-0">Username</label>
+                                        <div class="col-md-12 border-bottom p-0" style="font-size: 20px">
+                                            {{profile.username}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Password</label>
+                                        <div class="col-md-12 border-bottom p-0" style="font-size: 20px">
+                                            <span>**********************</span>
+                                            <a class="btn btn-warning mb-3 ml-4" href="/user-profile/change-password">Change password</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Name</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" name="fullname" value="{{profile.fullname}}"
-                                                   class="form-control p-0 border-0"> </div>
+                                            <input type="text" name="name" value="{{profile.name}}" style="font-size: 20px"
+                                                   class="form-control p-0 border-0" > </div>
                                     </div>
 
                                     <div class="form-group mb-4">
                                         <label for="example-email" class="col-md-12 p-0">Email</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <input type="email" name="email" value="{{profile.email}}"
-                                                   class="form-control p-0 border-0" name="example-email"
-                                                   id="example-email" disabled>
+                                        <div class="col-md-12 border-bottom p-0" style="font-size: 20px" style="font-size: 20px">
+                                            {{profile.email}}
                                         </div>
                                     </div>
 
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Phone No</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" name="phone" value="{{profile.phone}}"
+                                            <input type="text" name="phone" value="{{profile.phone}}" style="font-size: 20px"
                                                    class="form-control p-0 border-0">
                                         </div>
                                     </div>
@@ -54,32 +67,16 @@
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Address</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" name="address" value="{{profile.address}}" class="form-control p-0 border-0">
+                                            <input type="text" name="address" value="{{profile.address}}"
+                                                   class="form-control p-0 border-0" style="font-size: 20px">
                                         </div>
                                     </div>
 
-                                    <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">New password</label>
-                                        <div class="col-md-12 border-bottom border-danger p-0">
-                                            <input type="password" name="password" value="" class="form-control p-0 border-0" placeholder="">
-                                        </div>
-                                    </div>
-
-                                     <div class="form-group mb-4 mt-4">
-                                        <label class="col-md-12 p-0" style="color: red;">Confirm your password to complete a change in information</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <input type="password" name="oldPassword" value=""
-                                                   class="form-control p-0 border-0" placeholder="Confirm here">
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-5 mt-5" style=" text-align: center;">
+                                    <div class="mb-5 mt-5" style=" text-align: center;" style="font-size: 20px">
                                         <button type="submit" class="btn btn-warning col-5">Update account</button>
                                     </div>
 
                                 </form>
-
-    
 
                                 <div class="mt-5" style="text-align: center; color: limegreen">
                                     {{#if updateSuccess}}
@@ -90,11 +87,8 @@
                                  <div class="mt-5" style="text-align: center; color: rgb(205, 50, 50)">
                                     {{#if updateFail}}
                                         <h2>Update profile failed!</h2>
-                                        <h4>Please check your password again. </h4>
                                     {{/if}}
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

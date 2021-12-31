@@ -6,11 +6,6 @@ const passport = require("../../passport");
 
 router.get('/login', authController.formLogin);
 
-// router.post('/login', passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/auth/login?wrong-password'
-// }));
-
 router.post('/login',  function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
     if(err == "notActivated"){ return res.redirect('/auth/login?not-activated'); }

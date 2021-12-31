@@ -4,25 +4,17 @@ const authService = require('../auth/authService');
 
 exports.findById = (id) => userModel.findOne({_id: id}).lean();
 
-exports.updateOneFromDatabase = async (req) => {
-    //comfirm password before change information.
-    const user = await authService.findByEmail(req.user.email);
-    const isValid = await authService.validPassword(req.body.oldPassword, user);
+exports.updateOneFromDatabase = async (req) => await userModel.updateOne({_id:req.params._id}, req.body);
 
-    // console.log(typeof req.body.password)
-    if(req.body.password === ""){
-        req.body.password = await bcrypt.hash(req.body.oldPassword, 10);
-        // req.body.password = req.body.oldPassword;
-    }
-    else {
-        req.body.password = await bcrypt.hash(req.body.password, 10);
-    }
-
+exports.updatePassword = async (req) => {
+    const user = await userModel.findById({_id:req.params._id});
+    const isValid = await authService.validPassword(req.body.password, user);
     if(!isValid){
-        return false;            
+        return false;
     }
-    else{
-        await userModel.updateOne({_id:req.params._id}, req.body);
-        return true;            
-    }
+
+    const newPassword = await bcrypt.hash(req.body['new-password'], 10);
+
+    await userModel.updateOne({_id:req.params._id}, { $set: { password: newPassword }});
+    return true;
 }

@@ -11,6 +11,7 @@ const cartRouter = require("../components/cart/index");
 const apiRouter = require("../api/index");
 const authMiddleWare = require("../middleware/authMiddleware");
 const forgotPassword = require("../components/forgotPassword");
+
 function route(app) {
   app.use("/products", productsRouter);
   app.use("/detail-product", detailRouter);
@@ -19,7 +20,7 @@ function route(app) {
   app.use("/auth", userRouter);
   app.use("/user-profile", authMiddleWare, userProfile);
   app.use("/forgotPassword", forgotPassword);
-  app.use("/cart", authMiddleWare, cartRouter); //Router for cart
+  app.use("/cart", cartRouter); //Router for cart
   app.use("/api", apiRouter); //Router for api
   app.use("/", homeRouter);
 

@@ -26,6 +26,7 @@ exports.model = async (user) => {
     await userModel.create({
         username: user.username,
         password: passwordHash,
+        name: user.name,
         email: user.email,
         status: false,
         activationString,

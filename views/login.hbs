@@ -1,63 +1,59 @@
-<link rel="stylesheet" href="/assets/css/css-style-login.css">
-
 <div class="login-page">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="section-heading">
                     <div class="line-dec"></div>
-                    <h1>Login / Sign up</h1>
+                    <h1>Login</h1>
                 </div>
             </div>
 
-            <div class="container">
-                <div class="col-md-12">
-                    <div class="login-wrap">
-                        <div class="login-html">
-                            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label class="tab">Sign In</label>
-                            <input id="tab-2" type="radio" name="tab" class="sign-up"><label class="tab"></label>
-                            <div class="login-form">
-                                <div class="sign-in-htm">
-                                    <form method="POST" action="/auth/login">
-                                        <div class="group">
-                                            {{#if wrongPassword}}
-                                                <h5 style="color: #ff4a5c; font-weight: 400">Username or password is incorrect !</h5>
-                                            {{/if}}
-                                            {{#if notActivated}}
-                                                <h5 style="color: #ff4a5c; font-weight: 400">Your account is not activated !</h5>
-                                            {{/if}}
-                                        </div>
-                                        <input type="hidden" name="isComment" id="isComment" value="{{comment}}">
-                                        <div class="group">
-                                            <label for="user" class="label">Username</label>
-                                            <input id="user" name="username" type="text" class="input" required>
-                                        </div>
-                                        <div class="group">
-                                            <label for="pass" class="label">Password</label>
-                                            <input id="pass" name="password" type="password" class="input" data-type="password" required>
-                                        </div>
-                                        <div class="group">
-                                            <input id="check" type="checkbox" class="check" checked>
-                                            <label for="check"><span class="icon"></span> Keep me Signed in</label>
-                                        </div>
-                                        <div class="group">
-                                            <input type="submit" class="button" value="Sign In">
-                                        </div>
-                                        <div class="hr"></div>
-                                        <div class="foot-lnk">
-                                            <a href="/forgotPassword">Forgot Password?</a>
-                                        </div>
-                                    </form>
-                                </div>
+            <div class="container mt-4 login-form">
+                <div class="row mb-3">
+                    <div class="col-md-6 offset-md-3 shadow" style="background-color: wheat;
+                                                    margin-bottom: 20px;padding-bottom: 30px;">
+                        <form class="p-4"  action="/auth/login" method="post" >
+                            <div class="mb-3" style="color: black; font-size: 30px">
+                                <h1>Login</h1>
                             </div>
+
+                            {{#if wrongPassword}}
+                                <div class="mb-3" style="text-align: center; color:red;font-size: 20px">
+                                    Username or password is incorrect !
+                                </div>
+                            {{/if}}
+                            {{#if notActivated}}
+                                <div class="mb-3" style="text-align: center; color:red;font-size: 20px">
+                                    Your account is not activated !
+                                </div>
+                            {{/if}}
+
+                            <div class="mb-3">
+                                <label for="username" style="color: black; font-size: 20px">Username</label>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="Password" style="color: black; font-size: 20px">Password</label>
+                                <input type="password" class="form-control" name="password" id="Password" placeholder="Password" required>
+                            </div>
+
+                            <div class="mb-3" style=" text-align: center;">
+                                <button type="submit" class="btn btn-success col-md-12 ">Login</button>
+                            </div>
+
+                            <div class="mb-3" style=" text-align: left;font-size: 15px">
+                                <a href="/forgotPassword">Forgot Password?</a>
+                            </div>
+
+                            <hr>
+                        </form>
+                        <div class="foot-lnk mb3" style="color: black; text-align: center; font-size: 20px">
+                            You don't have account ? <a href="/auth/register">Register</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
-
-<script src="/assets/js/confirm-password.js"></script>
