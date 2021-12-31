@@ -1,3 +1,3 @@
-const Product = require('../../models/Product')
+const productModel = require('../../models/Product')
 
-exports.list = () => Product.find({});
+exports.list = () => productModel.find({});

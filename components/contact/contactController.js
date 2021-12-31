@@ -1,7 +1,7 @@
 class contactController{
     // [GET] /
     index(req, res, next){
-        res.render('contact',{user: req.user});
+        res.render('../components/contact/views/contact',{user: req.user});
     }
 }
 

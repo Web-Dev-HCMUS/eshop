@@ -2,7 +2,7 @@
 class aboutController{
     // [GET] /
     index(req, res, next){
-        res.render('about',{user: req.user});
+        res.render('../components/about/views/about',{user: req.user});
     }
 }
 

@@ -1,7 +1,7 @@
 const profileService = require('./profileService');
 
 
-class aboutUserProfile{
+class userProfileController{
     // [GET] /
     async show(req, res, next){
         const updateSuccess = req.query['update-success'] !== undefined;
@@ -50,4 +50,4 @@ class aboutUserProfile{
     }
 }
 
-module.exports = new aboutUserProfile();
+module.exports = new userProfileController();

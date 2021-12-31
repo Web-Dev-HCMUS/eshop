@@ -1,9 +1,6 @@
-const Comment = require("../../models/Comment");
-const Product = require("../../models/Product");
-const mongooseObject = require("../../ulti/mongoose");
 const detailService = require("./detailProductService");
 
-class detailControlller {
+class detailController {
   // [GET] /:slug
 //   show(req, res, next) {
 //     Product.findOne({ slug: req.params.slug })
@@ -29,7 +26,7 @@ class detailControlller {
 
     async show(req, res, next){
         const product = await detailService.show(req.params.slug )
-        res.render("detail-product", product);
+        res.render("../components/detailProduct/views/detail-product", product);
     }
 
   async postComment(req, res, next){
@@ -41,4 +38,4 @@ class detailControlller {
   }
 }
 
-module.exports = new detailControlller();
+module.exports = new detailController();

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Cart = new Schema({
-  userId: { type:String },
+  username: { type:String },
   products: [
     {
       quantity: { type: Number },
@@ -23,7 +23,8 @@ const Cart = new Schema({
     city: { type: String },
     zip: { type: String },
   },
-  status : {type:String}
-});
+  status : {type:String},
+
+}, {timestamps: true});
 
 module.exports = mongoose.model("Cart", Cart);

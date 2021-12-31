@@ -10,21 +10,21 @@ exports.formLogin = async function(req, res, next){
 
     if(!isComment){
         if(wrongPassword){
-            res.render('login', { wrongPassword});
+            res.render('../components/auth/views/login', { wrongPassword});
         }else if(notActivated) {
-            res.render('login', { notActivated});
+            res.render('../components/auth/views/login', { notActivated});
         }
         else{
-            res.render('login');
+            res.render('../components/auth/views/login');
         }}
     else {
         if(wrongPassword){
-            res.render('login', { wrongPassword, comment});
+            res.render('../components/auth/views/login', { wrongPassword, comment});
         }else if(notActivated) {
-            res.render('login', { notActivated, comment});
+            res.render('../components/auth/views/login', { notActivated, comment});
         }
         else{
-            res.render('login', comment);
+            res.render('../components/auth/views/login', comment);
         }}
 };
 
@@ -36,7 +36,7 @@ exports.logout = async function(req, res, next){
 exports.formRegister= async function(req, res, next){
     const userExist = req.query['username-exist'] !== undefined;
     const validate = req.query['validate-account'] !== undefined;
-    res.render('register', {userExist, validate});
+    res.render('../components/auth/views/register', {userExist, validate});
 };
 
 exports.register = async (req, res, next) => {

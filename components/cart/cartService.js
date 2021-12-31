@@ -5,10 +5,8 @@ const mongoose = require("mongoose");
 const util = require("../../ulti/mongoose");
 
 exports.createNewCart = async (req) => {
-  const user = await userModel.findOne({username : req.user.username}).lean();
-
   await cartModel.create({
-    userId: user._id,
+    username: req.user.username,
     products: req.session.cart,
     orderTotal : req.session.totalOrderPrice,
     checkoutInformation:{

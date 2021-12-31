@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const profileControlller = require('./profileController');
+const profileController = require('./profileController');
 
-router.get('/', profileControlller.show);
-router.post('/:_id', profileControlller.update);
+router.get('/', profileController.show);
+router.post('/:_id', profileController.update);
 
-router.get('/change-password', profileControlller.changePasswordPage);
-router.post('/change-password/:_id', profileControlller.updateNewPassword);
+router.get('/change-password', profileController.changePasswordPage);
+router.post('/change-password/:_id', profileController.updateNewPassword);
 
 module.exports = router;

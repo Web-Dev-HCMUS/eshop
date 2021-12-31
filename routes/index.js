@@ -4,8 +4,8 @@ const detailRouter = require("../components/detailProduct");
 const aboutRouter = require("../components/about");
 const contactRouter = require("../components/contact");
 const homeRouter = require("../components/home");
-const userProfile = require("../components/profile");
-
+const userProfileRouter = require("../components/profile");
+const myPurchaseRouter = require("../components/myPurchase");
 const userRouter = require("../components/auth/index");
 const cartRouter = require("../components/cart/index");
 const apiRouter = require("../api/index");
@@ -18,7 +18,8 @@ function route(app) {
   app.use("/about", aboutRouter);
   app.use("/contact", contactRouter);
   app.use("/auth", userRouter);
-  app.use("/user-profile", authMiddleWare, userProfile);
+  app.use("/user-profile", authMiddleWare, userProfileRouter);
+  app.use("/my-purchase", authMiddleWare, myPurchaseRouter);
   app.use("/forgotPassword", forgotPassword);
   app.use("/cart", cartRouter); //Router for cart
   app.use("/api", apiRouter); //Router for api
