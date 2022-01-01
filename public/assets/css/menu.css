@@ -48,3 +48,6 @@
 .dropdown:hover .dropbtn {
   color: #3a8bcd;
 }
+.navbar-nav li:hover > .dropdown-menu {
+  display: block;
+}
