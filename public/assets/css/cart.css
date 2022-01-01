@@ -77,7 +77,7 @@
 .prices{
   height: 100%;
   text-align: right;
-  width: 11%;
+  width: 21%;
 }
 .amount{
   padding-top: 20px;
@@ -140,4 +140,9 @@ hr{
   font-family: 'Open Sans';
   font-weight: 600;
   color: #202020;
+}
+
+.cancel{
+  background: linear-gradient(to bottom right, #c2469e, #c41414);
+  color: white;
 }

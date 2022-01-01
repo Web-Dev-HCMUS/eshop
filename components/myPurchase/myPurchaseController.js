@@ -13,6 +13,11 @@ class myPurchaseController{
         }
         res.render('../components/myPurchase/views/myPurchase', {carts, isEmpty});
     }
+
+    async cancelOrder(req, res, next){
+        await myPurchaseService.cancelOrder(req);
+        res.redirect('/my-purchase/ordered');
+    }
 }
 
 module.exports = new myPurchaseController();

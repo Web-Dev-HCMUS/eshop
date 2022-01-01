@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="/assets/css/flex-slider.css">
 <link rel="stylesheet" href="/assets/css/owl.css">
 <link rel="stylesheet" href="/assets/css/comment.css">
-<script src="/vendor/jquery/jquery.min.js"></script>
 <!-- Page Content -->
 <!-- Single Starts Here -->
 <div class="single-product">
@@ -197,82 +196,83 @@
 </script>
 
 {{!-- AJAX --}}
-<script type="text/javascript">
-    $('#addToCart').on('click', function (event, value) {
-        event.preventDefault();
-        const quantity = document.getElementById("quantity").value;
-        $.get(`/cart/add/{{product._id}}?quantity=${quantity}`, function(data){
-            document.getElementById('cartQuantity').innerHTML = data.cart.length;
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#addToCart').on('click', function (event, value) {
+            event.preventDefault();
+            const quantity = document.getElementById("quantity").value;
+            $.get(`/cart/add/{{product._id}}?quantity=${quantity}`, function(data){
+                document.getElementById('cartQuantity').innerHTML = data.cart.length;
+            });
         });
-    });
 
-    //detail product comment
-    $('#comment-submit-btn').on('click', function (event){
-        event.preventDefault();
+        //detail product comment
+        $('#comment-submit-btn').on('click', function (event) {
+            event.preventDefault();
 
-        if($('#comment-content').val().length > 0 && $('#comment-username').val().length > 0) {
-            $.post(`/api/product/${$('#productComemtId').val()}/comment`, {
-                username: $('#comment-username').val(),
-                content: $('#comment-content').val(),
+            if ($('#comment-content').val().length > 0 && $('#comment-username').val().length > 0) {
+                $.post(`/api/product/${$('#productComemtId').val()}/comment`, {
+                    username: $('#comment-username').val(),
+                    content: $('#comment-content').val(),
 
-            }, function (data){
-                const commentTemplate = Handlebars.compile(
-                    document.getElementById("comment-template").innerHTML);
+                }, function (data) {
+                    const commentTemplate = Handlebars.compile(
+                            document.getElementById("comment-template").innerHTML);
                     const commentHTML = commentTemplate(data);
 
                     $('#comment-list').prepend(commentHTML);
                     $('#comment-content').val("");
 
-                    if($('#comment-login').val() != 1){
+                    if ($('#comment-login').val() != 1) {
                         $('#comment-username').val("");
                     }
-            }).fail(function(data){
-                if(data.status === 401){
-                    window.location.href = `/auth/login?redirect=detail-product/${$('#productComemtId').val()}`;
-                }
-            })
-        }
-        else{
-            alert('Comment is empty!')
+                }).fail(function (data) {
+                    if (data.status === 401) {
+                        window.location.href = `/auth/login?redirect=detail-product/${$('#productComemtId').val()}`;
+                    }
+                })
+            } else {
+                alert('Comment is empty!')
 
-        }
-    });
+            }
+        });
 
 
-    //phân trang comment  
+        //phân trang comment
 
-    let pageItem = document.querySelectorAll('#page-item');
-    let flag = 0;
-    let curr = 1;
-    let totalPage = $('#totalPage').val();
-    
-    if(totalPage !== "0"){
-        for(let i = 0; i<pageItem.length; i++){
-            let searchParams = new URLSearchParams(window.location.search);
+        let pageItem = document.querySelectorAll('#page-item');
+        let flag = 0;
+        let curr = 1;
+        let totalPage = $('#totalPage').val();
 
-            if(!searchParams.has('page')){
-                if(!searchParams.has('name')){
-                    pageItem[i].href = location.href + '?page=' + (i + 1);
+        if (totalPage !== "0") {
+            for (let i = 0; i < pageItem.length; i++) {
+                let searchParams = new URLSearchParams(window.location.search);
+
+                if (!searchParams.has('page')) {
+                    if (!searchParams.has('name')) {
+                        pageItem[i].href = location.href + '?page=' + (i + 1);
+                    } else {
+                        pageItem[i].href = location.href + '&page=' + (i + 1);
+                    }
                 } else {
-                    pageItem[i].href = location.href + '&page=' + (i + 1);
+                    const result = location.href.toString().replace(/page=[0-9]/, 'page=' + (i + 1))
+                    pageItem[i].href = result;
                 }
-            }else{
-                const result = location.href.toString().replace(/page=[0-9]/, 'page='+ (i+1))
-                pageItem[i].href = result;
+
+                if (pageItem[i].href === location.href) {
+                    pageItem[i].className += " activeCurrent";
+                    flag = 1;
+                }
             }
 
-            if(pageItem[i].href === location.href){
-                pageItem[i].className += " activeCurrent";
-                flag = 1;
+            if (flag === 0) {
+                pageItem[0].className += " activeCurrent";
             }
+        } else {
+            $('#haveComment').css('display', 'none')
         }
-
-        if(flag === 0){
-            pageItem[0].className += " activeCurrent";
-        }
-    }
-    else{
-        $('#haveComment').css('display', 'none')
-    }
-
+    })
 </script>
+
+<script src="/vendor/jquery/jquery.min.js"></script>

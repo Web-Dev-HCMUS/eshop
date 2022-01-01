@@ -54,8 +54,6 @@
                                             <div id="totalPrice{{this._id}}" class="amount" style="font-size: 18px;">
                                                 {{numberWithCommas this.totalPrice}} VND
                                             </div>
-
-                                            <div class="remove" onclick='remove("{{this._id}}")'><u>Remove</u></div>
                                         </div>
                                     </div>
                                 {{/each}}
@@ -66,9 +64,11 @@
                                             <div class="Subtotal" style="font-size: 20px;">Order total</div>
                                         </div>
                                         <div id="orderTotal" class="total-amount" style="font-size: 20px;">
-                                            {{numberWithCommas this.totalOrder}}VNĐ
+                                            {{numberWithCommas this.totalOrder}} VNĐ
                                         </div>
                                     </div>
+                                    <button id="cancel-btn" class="buttonCheckout cancel"
+                                            onclick='cancel("{{this._id}}")'>Cancel Order</button>
                                 </div>
                             </div>
                         </div>
@@ -87,20 +87,27 @@
 </div>
 
 <script type="text/javascript">
-    let pageItem = document.querySelectorAll('#status-item');
-    let flag = 0;
-    let curr = 1;
+    let statusItem = document.querySelectorAll('#status-item');
 
-    console.log(location.href)
-
-    for(let i = 0; i<pageItem.length; i++){
-        if(location.href.includes(pageItem[i].getAttribute('value'))){
-            pageItem[i].className += "active";
-            flag = 1;
+    for(let i = 0; i<statusItem.length; i++){
+        if(location.href.includes(statusItem[i].getAttribute('value'))){
+            statusItem[i].className += "active";
         } else{
-            pageItem[i].className += "";
+            statusItem[i].className += "";
         }
     }
 
+    const cancel = (id) => {
+        window.location.href = `/my-purchase/cancel/${id}`;
+    }
+
+    if(!window.location.href.includes('ordered')){
+        document.getElementById('cancel-btn').remove();
+    }
 </script>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+
+
+
 

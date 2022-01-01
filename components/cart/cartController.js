@@ -1,11 +1,10 @@
-const mongoose = require("mongoose");
 const cartService = require("./cartService");
-const {addItemToCart} = require("./cartService");
 
 class cartController {
-  async index(req, res, next) {
+  index(req, res, next) {
     res.render('../components/cart/views/cart');
   }
+
   async add(req, res, next) {
     await cartService.addItemToCart(req);
 
@@ -23,7 +22,9 @@ class cartController {
 
   async checkout(req, res, next){
     await cartService.createNewCart(req);
-    res.redirect('/user-profile');
+    delete req.session.cart;
+    delete req.session.totalOrderPrice;
+    res.redirect('/my-purchase/ordered');
   }
 
 }

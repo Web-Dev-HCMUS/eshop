@@ -1,8 +1,5 @@
 const cartModel = require("../../models/Cart");
 const productModel = require("../../models/Product");
-const userModel = require("../../models/User");
-const mongoose = require("mongoose");
-const util = require("../../ulti/mongoose");
 
 exports.createNewCart = async (req) => {
   await cartModel.create({
@@ -32,8 +29,8 @@ exports.addItemToCart = async (req) => {
     _id: product._id,
     name: product.name,
     price: product.price,
-    quantity: 1,
-    totalPrice: product.price,
+    quantity: quantity,
+    totalPrice: product.price * quantity,
     image: product.image[0],
     slug: product.slug
   };
@@ -47,7 +44,7 @@ exports.addItemToCart = async (req) => {
 
     for(let i=0; i<cart.length; i++){
       if(cart[i]._id === productId){
-        cart[i].quantity++;
+        cart[i].quantity += quantity;
         cart[i].totalPrice = cart[i].price * cart[i].quantity;
         newProduct = false;
         break;

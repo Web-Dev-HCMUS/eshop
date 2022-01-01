@@ -25,6 +25,7 @@ exports.getPurchase = async (req, status) => {
                 totalOrder += result[i].products[j].totalPrice;
             }
             carts.push({
+                _id: result[i]._id,
                 products: cart,
                 totalOrder: totalOrder
             });
@@ -33,4 +34,6 @@ exports.getPurchase = async (req, status) => {
 
     return carts;
 };
+
+exports.cancelOrder = async (req) => await cartModel.deleteOne({_id:req.params._id});
 
