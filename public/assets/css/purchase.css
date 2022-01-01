@@ -45,7 +45,7 @@
     content: '';
     width: 150%;
     height: 2px;
-    background: #f8f80a;
+    background: #e70c0c;
     position: absolute;
     left: 0%;
     right: 0%;
@@ -68,7 +68,7 @@
 }
 
 .bs4-order-tracking li.active>div {
-    background: #dc3545
+    background: #e70c0c;
 }
 
 .card-timeline {
@@ -80,4 +80,17 @@
 .row-main {
     padding: 1.5vh 0;
     align-items: center
+}
+
+.no-order{
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    border:1px solid rgba(0,0,0,.125);
+    border-radius:.25rem;
+    width: 100%; height: 150px;
+}
+
+.no-order h3{
+    margin-top: 50px;
 }

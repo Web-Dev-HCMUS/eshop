@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/assets/css/purchase.css">
+<link rel="stylesheet" href="/assets/css/cart.css">
 <div class="about-page">
     <div class="container">
         <div class="row">
@@ -12,81 +13,70 @@
             <div>
                 <div class="card card-timeline px-2 border-none">
                     <ul class="bs4-order-tracking">
-                        <li class="step active">
+                        <li id="status-item" class="" value="ordered">
                             <div><i class="fas fa-user"></i></div>
-                            <a href="/my-purchase/ordered" class="btn btn-outline-danger mt-2">Order</a>
+                            <a href="/my-purchase/ordered" class="btn btn-outline-danger mt-2">Ordered</a>
                         </li>
-                        <li class="step active">
+                        <li id="status-item" class="" value="transit">
                             <div><i class="fas fa-bread-slice"></i></div>
                             <a href="/my-purchase/transit" class="btn btn-outline-danger mt-2">Transit</a>
                         </li>
-                        <li class="step">
+                        <li id="status-item" class="" value="delivery">
                             <div><i class="fas fa-truck"></i></div>
                             <a href="/my-purchase/delivery" class="btn btn-outline-danger mt-2">Delivery</a>
                         </li>
-                        <li class="step">
+                        <li id="status-item" class="" value="completed">
                             <div><i class="fas fa-birthday-cake"></i></div>
                             <a href="/my-purchase/completed" class="btn btn-outline-danger mt-2">Completed</a>
                         </li>
                     </ul>
-                    <h5 class="text-center">Click button above to watch status of order!</h5>
                 </div>
 
                 <div>
                     {{#each carts}}
-                        <div class="mt-4"><h3>Cart #{{@index}}</h3></div>
-                        <div class="cart_items">
-                            <ul class="cart_list">
+                        <div class="bodyC">
+                            <div class="CartContainer">
                                 {{#each this.products}}
-                                    <li class="cart_item clearfix" id="{{this._id}}">
-                                        <div class="cart_item_image"><img src="{{this.image}}" alt=""></div>
-                                        <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-
-                                            <div class="cart_item_name cart_info_col">
-                                                <div class="cart_item_title">Name</div>
-                                                <div class="cart_item_text">{{this.name}}</div>
-                                            </div>
-
-                                            <div class="cart_item_quantity cart_info_col">
-                                                <div class="cart_item_title ">Quantity</div>
-                                                <div class="cart_item_text" id="price{{this._id}}">{{this.quantity}}</div>
-                                            </div>
-
-                                            <div class="cart_item_price cart_info_col">
-                                                <div class="cart_item_title">Price</div>
-                                                <div class="cart_item_text" id="price{{this._id}}">
-                                                    {{numberWithCommas  this.price}} VND
-                                                </div>
-                                            </div>
-
-                                            <div class="cart_item_total cart_info_col">
-                                                <div class="cart_item_title">Total</div>
-                                                <div class="cart_item_text" id="totalPrice{{this._id}}">
-                                                    {{ numberWithCommas this.totalPrice}} VND
-                                                </div>
-                                            </div>
+                                    <div class="Cart-Items" id="{{this._id}}">
+                                        <div class="image-box">
+                                            <img src="{{this.image}}" style="height:120px" />
                                         </div>
+                                        <div class="about">
+                                            <h1 class="title" style="font-size: 18px;">{{this.name}}</h1>
+                                            <h3 class="price">{{numberWithCommas this.price}} VND</h3>
+                                        </div>
+                                        <div class="counter">
+                                            <label class="count" style="border: none; font-size: 18px;">
+                                                x{{this.quantity}}
+                                            </label>
+                                        </div>
+                                        <div class="prices">
+                                            <div id="totalPrice{{this._id}}" class="amount" style="font-size: 18px;">
+                                                {{numberWithCommas this.totalPrice}} VND
+                                            </div>
 
-                                    </li>
+                                            <div class="remove" onclick='remove("{{this._id}}")'><u>Remove</u></div>
+                                        </div>
+                                    </div>
                                 {{/each}}
-
-                            </ul>
-                        </div>
-                        <div class="order_total mb-5">
-                            <div class="order_total_content text-md-right">
-                                <div class="order_total_title">Order Total:</div>
-                                <div class="order_total_amount" id="orderTotal">
-                                    {{numberWithCommas this.totalOrder}}VNĐ
+                                <hr>
+                                <div class="checkout">
+                                    <div class="total">
+                                        <div>
+                                            <div class="Subtotal" style="font-size: 20px;">Order total</div>
+                                        </div>
+                                        <div id="orderTotal" class="total-amount" style="font-size: 20px;">
+                                            {{numberWithCommas this.totalOrder}}VNĐ
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     {{/each}}
 
                     {{#if isEmpty}}
-                    <div style="display: flex;  justify-content: center; margin-top: 2%;
-                                border:1px solid rgba(0,0,0,.125);border-radius:.25rem;
-                                width: 100%; height: 150px;">
-                        <h3 style="margin-top: 50px">--- No orders yet ---</h3>
+                    <div class="no-order">
+                        <h3> --- No orders yet --- </h3>
                     </div>
                     {{/if}}
                 </div>
@@ -96,4 +86,21 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    let pageItem = document.querySelectorAll('#status-item');
+    let flag = 0;
+    let curr = 1;
+
+    console.log(location.href)
+
+    for(let i = 0; i<pageItem.length; i++){
+        if(location.href.includes(pageItem[i].getAttribute('value'))){
+            pageItem[i].className += "active";
+            flag = 1;
+        } else{
+            pageItem[i].className += "";
+        }
+    }
+
+</script>
 

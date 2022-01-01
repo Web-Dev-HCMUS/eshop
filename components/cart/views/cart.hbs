@@ -21,16 +21,16 @@
                                 <h3 class="price">{{numberWithCommas this.price}} VND</h3>
                             </div>
                             <div class="counter">
-                                <div class="btnQuantity">-</div>
-                                <input class="count" type="number"
-                                       onfocus="if(this.value == '1') { this.value = ''; }"
-                                       onBlur="if(this.value == '') { this.value = '1';}"
+                                <button class="btnQuantity" onclick='sub("{{this._id}}")'><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                <input class="count" id="input-quantity-{{this._id}}"
                                        value="{{this.quantity}}" min="1"
                                        onchange='updateQuantity(this.value,"{{this._id}}")'/>
-                                <div class="btnQuantity">+</div>
+                                <button class="btnQuantity" onclick='add("{{this._id}}")'><i class="fa fa-plus" aria-hidden="true"></i></button>
                             </div>
                             <div class="prices">
-                                <div id="totalPrice{{this._id}}" class="amount"> {{numberWithCommas this.totalPrice}} VND</div>
+                                <div id="totalPrice{{this._id}}" class="amount">
+                                    {{numberWithCommas this.totalPrice}} VND
+                                </div>
                                 <div class="remove" onclick='remove("{{this._id}}")'><u>Remove</u></div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
 </div>
 
 <script type="text/javascript">
-    const updateQuantity=(value,id)=>{
+    const updateQuantity = (value, id) => {
         $.get(`/cart/update/${id}?action=quantity&quantity=${value}`,{},(data) => {
             document.getElementById('orderTotal').innerHTML = `${numberWithCommas(data.totalOrderPrice)} VND`;
             for(let i=0; i<data.cart.length; i++) {
@@ -69,8 +69,21 @@
             }
         })
     }
+
+    const add = (id) => {
+        document.getElementById(`input-quantity-${id}`).value++;
+        document.getElementById(`input-quantity-${id}`).dispatchEvent(new Event('change'))
+    }
+
+    const sub = (id) => {
+        let quantity = document.getElementById(`input-quantity-${id}`).value;
+        if(quantity > 1){
+            document.getElementById(`input-quantity-${id}`).value--;
+        }
+        document.getElementById(`input-quantity-${id}`).dispatchEvent(new Event('change'))
+    }
    
-    const remove=(id)=>{
+    const remove = (id) => {
         document.getElementById(`${id}`).remove();
         $.get(`/cart/update/${id}?action=remove`,{},(data)=>{
             document.getElementById('orderTotal').innerHTML = `${numberWithCommas(data.totalOrderPrice)} VND`;
@@ -94,6 +107,8 @@
         $('#checkout-btn').on('click', function (event) {
             window.location.href = "/cart/checkout";
         })
+
+
     })
 </script>
 

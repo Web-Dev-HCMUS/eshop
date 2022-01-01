@@ -1,5 +1,5 @@
 const createError = require("http-errors");
-const productsRouter = require("./products");
+const productsRouter = require("../components/products");
 const detailRouter = require("../components/detailProduct");
 const aboutRouter = require("../components/about");
 const contactRouter = require("../components/contact");
@@ -9,8 +9,9 @@ const myPurchaseRouter = require("../components/myPurchase");
 const userRouter = require("../components/auth/index");
 const cartRouter = require("../components/cart/index");
 const apiRouter = require("../api/index");
-const authMiddleWare = require("../middleware/authMiddleware");
 const forgotPassword = require("../components/forgotPassword");
+
+const authMiddleWare = require("../middleware/authMiddleware");
 
 function route(app) {
   app.use("/products", productsRouter);
@@ -21,7 +22,7 @@ function route(app) {
   app.use("/user-profile", authMiddleWare, userProfileRouter);
   app.use("/my-purchase", authMiddleWare, myPurchaseRouter);
   app.use("/forgotPassword", forgotPassword);
-  app.use("/cart", cartRouter); //Router for cart
+  app.use("/cart", cartRouter);
   app.use("/api", apiRouter); //Router for api
   app.use("/", homeRouter);
 

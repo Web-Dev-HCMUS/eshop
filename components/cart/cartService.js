@@ -20,47 +20,8 @@ exports.createNewCart = async (req) => {
       firstName: req.body['first-name'],
       lastName: req.body['last-name'],
     },
-    status : 'Ordered'
+    status : 'ordered'
   })
-};
-
-exports.findCartIdbyUserId = async (userId) => {
-  const cart = await cartModel.findOne({
-    userId: new mongoose.Types.ObjectId(userId),
-  });
-  const cartObject = util.mongooseToObject(cart);
-  const cartId = cartObject ? cartObject._id : null;
-  return cartId;
-};
-
-exports.getCartById = async (userId) => {
-  const cart = await cartModel.findOne({
-    userId: new mongoose.Types.ObjectId(userId),
-  });
-  const cartObject = util.mongooseToObject(cart);
-  return cartObject;
-};
-
-exports.getCart = async (cartId) => {
-  const cart = await cartModel.findOne({
-    _id: new mongoose.Types.ObjectId(cartId),
-  });
-  const cartObject = util.mongooseToObject(cart);
-  return cartObject;
-};
-exports.removeItem = async (cartId, productId) => {
-  let result = await cartModel.updateOne(
-    { _id: new mongoose.Types.ObjectId(cartId) },
-    {
-      $pull: {
-        products: {
-          productId: new mongoose.Types.ObjectId(productId),
-        },
-      },
-    }
-  );
-  result = result.modifiedCount === 0 ? false : true;
-  return result;
 };
 
 exports.addItemToCart = async (req) => {

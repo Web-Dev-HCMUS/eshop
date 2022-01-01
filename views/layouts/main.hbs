@@ -83,7 +83,7 @@
 </nav>
 
 <div class="wrapper" style="color: gray">
-    <a class="cart" href="/cart"><i class="fas fa-shopping-cart"></i>
+    <a class="cart" href="/cart" style="color: #3a8bcd;"><i class="fas fa-shopping-cart"></i>
         {{#if cart}}
             <span id="cartQuantity" class="cart">{{cart.length}}</span>
         {{else}}
@@ -93,18 +93,18 @@
 
     {{#if user}}
         <a id="profile" href="/user-profile"
-           style="margin-left: 20px"
+           style="margin-left: 20px;  color: #3a8bcd;"
            class="dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class='fa fa-user'></i>
 
-            <span class="" style="font-size: 25px">{{user.name}}
+            <span class="" style="font-size: 25px;">{{user.name}}
                 <i class='fas fa-caret-down'></i>
             </span>
         </a>
 
         <div class="dropdown-menu">
             <a class="dropdown-item" href="/user-profile">My Account</a>
-            <a class="dropdown-item" href="/my-purchase">My Purchase</a>
+            <a class="dropdown-item" href="/my-purchase/ordered">My Purchase</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/auth/logout">Log out</a>
         </div>
