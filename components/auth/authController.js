@@ -3,29 +3,15 @@ const authService = require('./authService');
 exports.formLogin = async function(req, res, next){
     const wrongPassword = req.query['wrong-password'] !== undefined;
     const notActivated = req.query['not-activated'] !== undefined;
-
-    let comment = req.query['redirect'];
-    const isComment = comment !== undefined;
-    comment = {comment}
-
-    if(!isComment){
-        if(wrongPassword){
-            res.render('../components/auth/views/login', { wrongPassword});
-        }else if(notActivated) {
-            res.render('../components/auth/views/login', { notActivated});
-        }
-        else{
-            res.render('../components/auth/views/login');
-        }}
-    else {
-        if(wrongPassword){
-            res.render('../components/auth/views/login', { wrongPassword, comment});
-        }else if(notActivated) {
-            res.render('../components/auth/views/login', { notActivated, comment});
-        }
-        else{
-            res.render('../components/auth/views/login', comment);
-        }}
+    
+    if(wrongPassword){
+        res.render('../components/auth/views/login', { wrongPassword});
+    }else if(notActivated) {
+        res.render('../components/auth/views/login', { notActivated});
+    }
+    else{
+        res.render('../components/auth/views/login');
+    }
 };
 
 exports.logout = async function(req, res, next){
@@ -61,6 +47,5 @@ exports.activate = async (req, res, next) => {
     }
     else{
         return res.redirect('/');
-
     }
 }

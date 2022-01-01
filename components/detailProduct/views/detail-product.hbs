@@ -84,7 +84,7 @@
                                 <div class="user d-flex flex-row align-items-center"> 
                                     <img src="/assets/images/placeholder.png" width="30" class="user-img rounded-circle mr-2"> 
                                     <span>
-                                        <small class="font-weight-bold text-primary font-med">{{this.email}}: </small> 
+                                        <small class="font-weight-bold text-primary font-med">{{this.username}}: </small> 
                                         <small class="font-weight-bold font-med">{{this.content}} </small>
                                     </span> </div> 
                                     <small>{{this.createdAt}}</small>
@@ -100,6 +100,28 @@
                 </ul>
             </div>
         </div>
+
+        {{!-- phân trang comment --}}
+        <div class="navigation mt-3">
+            <input type="hidden" id="totalPage" value="{{totalPage}}">
+            <ul class="pagination justify-content-center" id="haveComment">
+                <li class="page-item">
+                    <a class="page-link paginationStyle">First</a>
+                </li>
+
+                {{#for 1 totalPage 1}}
+                    <li class="page-item">
+                        <a id="page-item" class="page-link paginationStyle">{{this}}</a>
+                    </li>
+                {{/for}}
+
+                <li class="page-item">
+                    <a class="page-link paginationStyle">Last</a>
+                </li>
+            </ul>
+        </div>
+
+        {{!-- comment --}}
         <div>
             <div class="section-heading">
                 <div class="line-dec"></div>
@@ -107,8 +129,16 @@
             </div>
             <form class="form-group" method="post" action="" id="comment-form">       <!---/detail-product/{{product.slug}}/comment -->
                 <input type="hidden" name="productComemtId" id="productComemtId" value="{{product.slug}}">
+                
+                {{#unless user}}
+                    <input id="comment-username" class="form-control p-2 mb-1" type="text" name="userC" id="userC" placeholder="What's your name?" required>
+                {{else}}
+                    <input type="hidden" id="comment-username" name="userC" id="userC" value="{{user.username}}" required>
+                    <input type="hidden" id="comment-login" value="1" required>
+                {{/unless}}
+
                 <input id="comment-content" class="form-control p-2" type="text" name="contentC" id="contentC" placeholder="Place your comment here!" required>
-                <input class="btn mt-2 p-2" id="comment-submit-btn" style="float: right;" type="submit" value="Comment">
+                <input class="btn btn-info mt-2 p-2" id="comment-submit-btn" style="float: right;" type="submit" value="Comment">
             </form>
         </div>
     </div>
@@ -148,20 +178,12 @@
 
 <script id="comment-template" type="text/x-handlebars">
     <li>
-        {{!-- <div class="comment-conent">
-            <p>\{{content}}</p>
-        </div>
-        <div class="comment-info">
-            <p>\{{email}}</p>
-            <p>\{{createdAt}}</p>
-        </div> --}}
-     
         <div class="card p-3 mt-2">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="user d-flex flex-row align-items-center"> 
                     <img src="/assets/images/placeholder.png" width="30" class="user-img rounded-circle mr-2"> 
                     <span>
-                        <small class="font-weight-bold text-primary font-med">\{{this.email}}</small> 
+                        <small class="font-weight-bold text-primary font-med">\{{this.username}}: </small> 
                         <small class="font-weight-bold font-med">\{{this.content}} </small>
                     </span> </div> 
                     <small>\{{this.createdAt}}</small>
@@ -174,6 +196,7 @@
     </li>   
 </script>
 
+{{!-- AJAX --}}
 <script type="text/javascript">
     $('#addToCart').on('click', function (event, value) {
         event.preventDefault();
@@ -187,8 +210,9 @@
     $('#comment-submit-btn').on('click', function (event){
         event.preventDefault();
 
-        if($('#comment-content').val().length > 1){
+        if($('#comment-content').val().length > 0 && $('#comment-username').val().length > 0) {
             $.post(`/api/product/${$('#productComemtId').val()}/comment`, {
+                username: $('#comment-username').val(),
                 content: $('#comment-content').val(),
 
             }, function (data){
@@ -197,7 +221,11 @@
                     const commentHTML = commentTemplate(data);
 
                     $('#comment-list').prepend(commentHTML);
-                    $('#comment-content').val(" ");
+                    $('#comment-content').val("");
+
+                    if($('#comment-login').val() != 1){
+                        $('#comment-username').val("");
+                    }
             }).fail(function(data){
                 if(data.status === 401){
                     window.location.href = `/auth/login?redirect=detail-product/${$('#productComemtId').val()}`;
@@ -206,8 +234,45 @@
         }
         else{
             alert('Comment is empty!')
+
         }
     });
 
-</script>
 
+    //phân trang comment  
+
+    let pageItem = document.querySelectorAll('#page-item');
+    let flag = 0;
+    let curr = 1;
+    let totalPage = $('#totalPage').val();
+    
+    if(totalPage !== "0"){
+        for(let i = 0; i<pageItem.length; i++){
+            let searchParams = new URLSearchParams(window.location.search);
+
+            if(!searchParams.has('page')){
+                if(!searchParams.has('name')){
+                    pageItem[i].href = location.href + '?page=' + (i + 1);
+                } else {
+                    pageItem[i].href = location.href + '&page=' + (i + 1);
+                }
+            }else{
+                const result = location.href.toString().replace(/page=[0-9]/, 'page='+ (i+1))
+                pageItem[i].href = result;
+            }
+
+            if(pageItem[i].href === location.href){
+                pageItem[i].className += " activeCurrent";
+                flag = 1;
+            }
+        }
+
+        if(flag === 0){
+            pageItem[0].className += " activeCurrent";
+        }
+    }
+    else{
+        $('#haveComment').css('display', 'none')
+    }
+
+</script>
