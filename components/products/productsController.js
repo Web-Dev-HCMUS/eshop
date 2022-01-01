@@ -36,7 +36,8 @@ class productsController {
         };
       }
       const category = req.query.category;
-      if (category !== "default" && category !== "0") {
+
+      if (category !== "default" && category !== "0" && category) {
         filter.type = category;
       }
       const rangePrice = req.query.rangePrice;
@@ -71,7 +72,7 @@ class productsController {
       const sortParams = req.query.sort;
       const orderParams = req.query.order;
       let sort = {};
-      if (release === "0") {
+      if (release === "0" || !release) {
         sort = { updatedAt: "-1" };
       } else {
         sort = { updatedAt: release };
