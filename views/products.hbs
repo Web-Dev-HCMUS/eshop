@@ -24,7 +24,14 @@
             <div class="sort col">
                 <button type="button" class="sort-btn btn btn-outline-primary" onClick="highestPrice()">Giá cao nhất</button>
                 <button type="button" class="sort-btn btn btn-outline-primary" onclick="lowestPrice()">Giá thấp nhất</button>
-
+                <select class="form-select" aria-label="Default select example" onchange="changeCategory(this)">
+                    <option  >Category</option>
+                    <option value='default' >All products</option>
+                    <option value="iphone">Iphone</option>
+                    <option value="ipad">Ipad</option>
+                    <option value="macbook">Macbook</option>
+                    <option value="watch">Apple Watch</option>
+                </select>
 
 
             </div>
@@ -121,6 +128,16 @@
             window.location.href = '/products/search?name=' + params.get('name') + '&page=1&sort=price&order=asc';
         }else{
         window.location.href = '/products/search?name=' + '&sort=price&order=asc';}
+    }
+    function changeCategory(option){
+        let value = option.value;
+        if(value==='default')
+        {
+            value=''
+        }
+        window.location.href = `/products/search?name=${value}&page=1`;
+
+        
     }
 </script>
 <!-- Featred Page Ends Here -->

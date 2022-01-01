@@ -13,6 +13,7 @@ const Product = new Schema(
     slug: { type: String, slug: "name", unique: true },
     image: { type: Array },
     type: { type: String },
+    updatedAt: { type: Date },
   },
   { timestamps: true }
 );
