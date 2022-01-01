@@ -47,6 +47,5 @@ exports.activate = async (req, res, next) => {
     }
     else{
         return res.redirect('/');
-
     }
 }

@@ -3,13 +3,13 @@ const authService = require('../auth/authService')
 
 exports.index = async (req, res, next) => {
     const {result} = req.query;
-    res.render('forgotPassword',{result});
+    res.render('../components/forgotPassword/views/forgotPassword',{result});
 }
 
 exports.sendMail = async (req, res, next) => {
     const success = await forgotService.sendMail(req.query.email);
     if(success === undefined) success = false;
-    res.render('waiting', {success});        
+    res.render('../components/forgotPassword/views/waiting', {success});        
 }
 
 exports.checkMail = async (req, res, next) => {
@@ -17,10 +17,10 @@ exports.checkMail = async (req, res, next) => {
     const activationString = req.query['activation-string'];
     const result = await forgotService.checkMail(email, activationString);
     if(result){
-        res.render('resetPassword',{result, email, activationString});
+        res.render('../components/forgotPassword/views/resetPassword',{result, email, activationString});
     }
     else{
-        res.render('resetPassword',{result});
+        res.render('../components/forgotPassword/views/resetPassword',{result});
     }
 }
 
