@@ -1,4 +1,4 @@
-const Product = require('../../models/Product');
+const Product = require("../../models/Product");
 const mongooseObject = require("../../ulti/mongoose");
 
 // change limit product will show on products page
@@ -35,9 +35,48 @@ class productsControlller {
           },
         };
       }
+      const category = req.query.category;
+      if (category !== "default" && category !== "0") {
+        filter.type = category;
+      }
+      const rangePrice = req.query.rangePrice;
+
+      if (rangePrice !== "0") {
+        switch (rangePrice) {
+          case "1":
+            filter.price = {
+              $lte: 10000000,
+            };
+            break;
+          case "2":
+            filter.price = {
+              $gte: 10000000,
+              $lte: 25000000,
+            };
+            break;
+          case "3":
+            filter.price = {
+              $gte: 25000000,
+            };
+            break;
+          default:
+            filter.price = {
+              $gte: 1,
+            };
+            break;
+        }
+      }
+
+      const release = req.query.release;
       const sortParams = req.query.sort;
       const orderParams = req.query.order;
-      let sort = { updatedAt: "-1" };
+      let sort = {};
+      if (release === "0") {
+        sort = { updatedAt: "-1" };
+      } else {
+        sort = { updatedAt: release };
+      }
+
       if (sortParams === "price") {
         if (orderParams === "asc") {
           sort = { price: "1" };
@@ -71,7 +110,7 @@ class productsControlller {
       res.render("products", {
         products: mongooseObject.multipleMongooseToObject(products),
         totalPage: totalPage,
-        user: req.user
+        user: req.user,
       });
     }
   }
