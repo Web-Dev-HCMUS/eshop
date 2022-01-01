@@ -45,7 +45,7 @@
     content: '';
     width: 150%;
     height: 2px;
-    background: #878788;
+    background: #f8f80a;
     position: absolute;
     left: 0%;
     right: 0%;
@@ -64,14 +64,10 @@
 
 .bs4-order-tracking li.active {
     font-weight: bold;
-    color: #dc3545
+    color: #49af33
 }
 
 .bs4-order-tracking li.active>div {
-    background: #dc3545
-}
-
-.bs4-order-tracking li.active:after {
     background: #dc3545
 }
 

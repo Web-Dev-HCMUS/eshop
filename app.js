@@ -29,6 +29,7 @@ const hbs = create({
                 accum += block.fn(i);
             return accum;
         },
+        numberWithCommas: (x) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."),
     }
 });
 app.engine('hbs', hbs.engine);
@@ -46,7 +47,7 @@ app.use(session({
     secret: "my-super-secret-key",
     resave: true,
     saveUninitialized: true,
-    cookie: {maxAge: 60000}}));
+    cookie: {maxAge: 2*60 * 60 * 1000}})); // user should login after 2 hour
 app.use(passport.initialize());
 app.use(passport.session());
 

@@ -43,7 +43,7 @@ form input {
     width: 100%;
     min-height: 25px;
     border: 0;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     letter-spacing: 0.15rem;
     font-family: "Arimo";
     margin-top: 5px;
@@ -86,6 +86,12 @@ form h1:nth-of-type(2) {
 }
 .cc-info div {
     width: 45%;
+}
+.total-pay{
+    margin-top: 50px;
+}
+.total-pay label{
+    font-size: 20px;
 }
 .btns {
     display: flex;

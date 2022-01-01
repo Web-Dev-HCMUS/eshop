@@ -5,9 +5,13 @@ class myPurchaseController{
         res.render('../components/myPurchase/views/myPurchase');
     }
 
-    async ordered(req, res, next){
-        await myPurchaseService.getOrderedCart(req);
-        res.render('../components/myPurchase/views/myPurchase');
+    async getPurchase(req, res, next){
+        const carts = await myPurchaseService.getPurchase(req, req.params.status);
+        let isEmpty = false
+        if(carts.length === 0){
+            isEmpty = true;
+        }
+        res.render('../components/myPurchase/views/myPurchase', {carts, isEmpty});
     }
 }
 

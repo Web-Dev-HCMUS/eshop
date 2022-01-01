@@ -1,74 +1,80 @@
 <link rel="stylesheet" href="/assets/css/checkout.css">
-<div class="cart_section">
-    <div class="container-fluid">
+<div class="about-page">
+    <div class="container">
         <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <div class="cart_container">
-                    <div class="cart_title">Checkout</div>
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <div class="line-dec"></div>
+                    <h1>Checkout</h1>
+                </div>
+            </div>
 
-                    <div class="CheckoutBody">
-                        <div class="wrapperCheckout">
-                            <div class="containerCheckout">
-                                <form action="/cart/checkout" method="post">
-                                    <h1>
-                                        <i class="fas fa-shipping-fast"></i>
-                                        Shipping Details
-                                    </h1>
-                                    <div class="name">
-                                        <div>
-                                            <label for="f-name">First Name</label>
-                                            <input type="text" name="first-name" required>
-                                        </div>
-                                        <div>
-                                            <label for="l-name">Last Name</label>
-                                            <input type="text" name="last-name" required>
-                                        </div>
-                                    </div>
-                                    <div class="street">
-                                        <label for="name">Street</label>
-                                        <input type="text" name="street" required>
-                                    </div>
-                                    <div class="address-info">
-                                        <div>
-                                            <label for="city">District</label>
-                                            <input type="text" name="district" required>
-                                        </div>
-                                        <div>
-                                            <label for="state">City/Province</label>
-                                            <input type="text" name="city" required>
-                                        </div>
-                                        <div>
-                                            <label for="zip">Zip</label>
-                                            <input type="text" name="zip" required>
-                                        </div>
-                                    </div>
-                                    <h1>
-                                        <i class="far fa-credit-card"></i> Payment Information
-                                    </h1>
-                                    <div class="cc-num">
-                                        <label for="card-num">Credit Card No.</label>
-                                        <input type="text" name="card-num" required>
-                                    </div>
-                                    <div class="cc-info">
-                                        <div>
-                                            <label for="card-num">Exp</label>
-                                            <input type="text" name="expire" required>
-                                        </div>
-                                        <div>
-                                            <label for="card-num">CCV</label>
-                                            <input type="text" name="ccv" required>
-                                        </div>
-                                    </div>
-                                    <div class="btns">
-                                        <button type="submit" id="purchase-btn">Purchase</button>
-                                        <button id="back-to-cart-btn" style="background-color: #706c6a">Back to cart</button>
-                                    </div>
-                                </form>
+            <div class="CheckoutBody">
+                <div class="wrapperCheckout">
+                    <div class="containerCheckout">
+                        <form action="/cart/checkout" method="post">
+                            <h1>
+                                <i class="fas fa-shipping-fast"></i>
+                                Shipping Details
+                            </h1>
+                            <div class="name">
+                                <div>
+                                    <label for="f-name">First Name</label>
+                                    <input type="text" name="first-name" required>
+                                </div>
+                                <div>
+                                    <label for="l-name">Last Name</label>
+                                    <input type="text" name="last-name" required>
+                                </div>
                             </div>
-                        </div>
+                            <div class="street">
+                                <label for="name">Street</label>
+                                <input type="text" name="street" required>
+                            </div>
+                            <div class="address-info">
+                                <div>
+                                    <label for="city">District</label>
+                                    <input type="text" name="district" required>
+                                </div>
+                                <div>
+                                    <label for="state">City/Province</label>
+                                    <input type="text" name="city" required>
+                                </div>
+                                <div>
+                                    <label for="zip">Zip</label>
+                                    <input type="text" name="zip" required>
+                                </div>
+                            </div>
+                            <h1>
+                                <i class="far fa-credit-card"></i> Payment Information
+                            </h1>
+                            <div class="cc-num">
+                                <label for="card-num">Credit Card No.</label>
+                                <input type="text" name="card-num" required>
+                            </div>
+                            <div class="cc-info">
+                                <div>
+                                    <label for="card-num">Exp</label>
+                                    <input type="text" name="expire" required>
+                                </div>
+                                <div>
+                                    <label for="card-num">CCV</label>
+                                    <input type="text" name="ccv" required>
+                                </div>
+                            </div>
+                            <div class="total-pay">
+                                <label>Total Payment: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <label>{{numberWithCommas totalOrderPrice}} VND</label>
+                            </div>
+                            <div class="btns">
+                                <button type="submit" id="purchase-btn">Purchase</button>
+                                <button id="back-to-cart-btn" style="background-color: #706c6a">Back to cart</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

@@ -66,7 +66,7 @@ exports.removeItem = async (cartId, productId) => {
 exports.addItemToCart = async (req) => {
   const productId = req.params.productId;
   const product = await productModel.findOne({_id: productId}).lean();
-
+  const quantity = Number(req.query.quantity);
   const productAdd = {
     _id: product._id,
     name: product.name,

@@ -41,8 +41,8 @@
             <div class="col-md-6">
                 <div class="right-content">
                     <div id="productId" style="display: none;">{{product._id}}</div>
-                    <h4>{{product.name}}</h4>
-                    <h6>{{product.price}}</h6>
+                    <h3>{{product.name}}</h3>
+                    <h2>{{numberWithCommas product.price}}</h2>
                     <p>{{product.description}} </p>
                     <span>{{product.stock}} left on stock</span>
                     <form action="" method="get">
@@ -51,7 +51,8 @@
                                onfocus="if(this.value == '1') { this.value = ''; }"
                                onBlur="if(this.value == '') { this.value = '1';}"
                                value="1">
-                        <a href="/cart/add/{{product._id}}" class="button" id="addToCart">Add to Cart
+
+                        <a href="/cart/add/{{product._id}}" class="button btn btn-outline-success" id="addToCart">Add to Cart
                         </a>
                     </form>
                     <div class="down-content">
@@ -133,7 +134,7 @@
                                 <div class="featured-item">
                                     <img src="{{getValue this.image 0}}" alt="Item 1">
                                     <h4>{{this.name}}</h4>
-                                    <h6>{{this.price}}</h6>
+                                    <h6>{{numberWithCommas this.price}}</h6>
                                 </div>
                             </a>
                         {{/each}}
@@ -174,11 +175,11 @@
 </script>
 
 <script type="text/javascript">
-    $('#addToCart').on('click', function (event) {
+    $('#addToCart').on('click', function (event, value) {
         event.preventDefault();
-        $.get(`/cart/add/{{product._id}}`, function(data){
+        const quantity = document.getElementById("quantity").value;
+        $.get(`/cart/add/{{product._id}}?quantity=${quantity}`, function(data){
             document.getElementById('cartQuantity').innerHTML = data.cart.length;
-            console.log(data);
         });
     });
 
