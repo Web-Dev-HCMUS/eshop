@@ -30,10 +30,10 @@ class detailController {
     }
 
   async postComment(req, res, next){
-    if(!req.user)
-         return res.redirect("/auth/login");
+    // if(!req.user) {return res.redirect("/auth/login");}
 
-    const comment = await detailService.postComment(req.user.email, req.params.slug, req.body.contentC);
+    
+    const comment = await detailService.postComment(req.user.username, req.params.slug, req.body.contentC);
     res.redirect(`/detail-product/${req.params.slug}`, )
   }
 }

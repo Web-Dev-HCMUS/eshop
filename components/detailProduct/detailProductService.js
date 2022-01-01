@@ -12,11 +12,11 @@ class detailProductService{
     }
 
 
-    postComment(email, product, content){
+    postComment(uName, product, content){
         if(content.length < 2) return;
         
         return new Comment({
-            email: email,
+            username: uName,
             productId: product,
             content: content,
             createdAt: new Date(),
