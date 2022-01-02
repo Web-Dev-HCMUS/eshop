@@ -37,7 +37,7 @@ class productsController {
       }
       const category = req.query.category;
 
-      if (category !== "default" && category !== "0" && category) {
+      if (category !== "all" && category !== "0" && category) {
         filter.type = category;
       }
       const rangePrice = req.query.rangePrice;
@@ -113,6 +113,40 @@ class productsController {
         totalPage: totalPage,
         user: req.user,
       });
+    }
+  }
+  async category(req, res, next) {
+    const category = req.params.category;
+    if (category === "all") {
+      const totalDoc = await Product.find({}).count();
+      const totalPage = Math.ceil(totalDoc / perPage);
+      const currentPage = req.query.page || 1;
+      const products = await Product.find({})
+        .skip(perPage * (currentPage - 1))
+        .limit(perPage);
+
+      res.render("../components/products/views/products", {
+        products: mongooseObject.multipleMongooseToObject(products),
+        totalPage: totalPage,
+        user: req.user,
+      });
+      return;
+    }
+    if (category !== "") {
+      console.log("category", category);
+      const totalDoc = await Product.find({ type: category }).count();
+      const totalPage = Math.ceil(totalDoc / perPage);
+      const currentPage = req.query.page || 1;
+      const products = await Product.find({ type: category })
+        .skip(perPage * (currentPage - 1))
+        .limit(perPage);
+
+      res.render("../components/products/views/products", {
+        products: mongooseObject.multipleMongooseToObject(products),
+        totalPage: totalPage,
+        user: req.user,
+      });
+      return;
     }
   }
 }
