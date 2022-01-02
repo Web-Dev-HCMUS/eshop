@@ -73,10 +73,13 @@
                 <li class="nav-item w120 nav-item dropdown">
                     <a id="navbarDropdownMenuLink" class="nav-link nav-item dropdown" href="/products">Product</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/products/search?name=iphone">Iphone</a>
-                        <a class="dropdown-item" href"/products/search?name=ipad">Ipad</a>
-                        <a class="dropdown-item" href="/products/search?name=macbook">Macbook</a>
-                        <a class="dropdown-item" href="/products/search?name=watch">Apple Watch</a>
+                        {{!-- <a class="dropdown-item" href="/products/category/iphone">Iphone</a>
+                        <a class="dropdown-item" href="/products/category/ipad">Ipad</a>
+                        <a class="dropdown-item" href="/products/category/macbook">Macbook</a>
+                        <a class="dropdown-item" href="/products/category/watch">Apple Watch</a> --}}
+                        {{#each category}}
+                            <a class="dropdown-item" href="/products/category/{{this.type}}">{{caps this.type}}</a>
+                        {{/each}}
                     </div>
                 </li>
                 <li class="nav-item w120">
