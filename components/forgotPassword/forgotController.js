@@ -7,8 +7,8 @@ exports.index = async (req, res, next) => {
 }
 
 exports.sendMail = async (req, res, next) => {
-    const success = await forgotService.sendMail(req.query.email);
-    if(success === undefined) success = false;
+    let success = await forgotService.sendMail(req.query.email);
+    if(success === undefined) {success = false;}
     res.render('../components/forgotPassword/views/waiting', {success});        
 }
 

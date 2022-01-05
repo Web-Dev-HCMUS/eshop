@@ -64,6 +64,7 @@
             document.getElementById('orderTotal').innerHTML = `${numberWithCommas(data.totalOrderPrice)} VND`;
             for(let i=0; i<data.cart.length; i++) {
                 if(data.cart[i]._id === id){
+                    document.getElementById(`input-quantity-${id}`).value = data.cart[i].quantity;
                     document.getElementById(`totalPrice${id}`).innerHTML = `${numberWithCommas(data.cart[i].totalPrice)} VND`;
                 }
             }
@@ -72,6 +73,7 @@
 
     const add = (id) => {
         document.getElementById(`input-quantity-${id}`).value++;
+
         document.getElementById(`input-quantity-${id}`).dispatchEvent(new Event('change'))
     }
 
@@ -107,8 +109,6 @@
         $('#checkout-btn').on('click', function (event) {
             window.location.href = "/cart/checkout";
         })
-
-
     })
 </script>
 

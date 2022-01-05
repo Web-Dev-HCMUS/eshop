@@ -51,8 +51,14 @@
                                onBlur="if(this.value == '') { this.value = '1';}"
                                value="1">
 
-                        <a href="/cart/add/{{product._id}}" class="button btn btn-outline-success" id="addToCart">Add to Cart
-                        </a>
+                        {{#if product.stock }}
+                            <button class="button btn btn-outline-success" id="addToCart">Add to Cart
+                            </button>
+                        {{else}}
+                            <button class="button btn btn-outline-success" id="addToCart" disabled>Add to Cart
+                            </button>
+                        {{/if}}
+
                     </form>
                     <div class="down-content">
                         <div class="categories">

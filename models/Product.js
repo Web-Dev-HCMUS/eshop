@@ -10,10 +10,10 @@ const Product = new Schema(
     price: { type: Number },
     description: { type: String },
     stock: { type: Number },
+    sold: { type: Number },
     slug: { type: String, slug: "name", unique: true },
     image: { type: Array },
-    type: { type: String },
-    updatedAt: { type: Date },
+    type: { type: String }
   },
   { timestamps: true }
 );

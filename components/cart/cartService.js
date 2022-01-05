@@ -2,9 +2,19 @@ const cartModel = require("../../models/Cart");
 const productModel = require("../../models/Product");
 
 exports.createNewCart = async (req) => {
+  let cart = req.session.cart;
+  for (let i = 0; i <cart.length; i++) {
+    await productModel.findById(cart[i]._id).then(async product => {
+      const updateObject = {
+        stock: product.stock - cart[i].quantity,
+        sold: cart[i].quantity
+      }
+      await productModel.updateOne({_id: cart[i]._id}, updateObject);
+    })
+  }
   await cartModel.create({
     username: req.user.username,
-    products: req.session.cart,
+    products: cart,
     orderTotal : req.session.totalOrderPrice,
     checkoutInformation:{
       ...
@@ -24,7 +34,7 @@ exports.createNewCart = async (req) => {
 exports.addItemToCart = async (req) => {
   const productId = req.params.productId;
   const product = await productModel.findOne({_id: productId}).lean();
-  const quantity = Number(req.query.quantity);
+  let quantity = Number(req.query.quantity) <= product.stock ? Number(req.query.quantity) : product.stock;
   const productAdd = {
     _id: product._id,
     name: product.name,
@@ -44,7 +54,8 @@ exports.addItemToCart = async (req) => {
 
     for(let i=0; i<cart.length; i++){
       if(cart[i]._id === productId){
-        cart[i].quantity += quantity;
+        quantity = cart[i].quantity += quantity;
+        cart[i].quantity = quantity <= product.stock ? quantity : product.stock;
         cart[i].totalPrice = cart[i].price * cart[i].quantity;
         newProduct = false;
         break;
@@ -64,12 +75,14 @@ exports.addItemToCart = async (req) => {
 
 exports.updateItemInCart = async (req) => {
   let cart = req.session.cart;
+  const product = await productModel.findOne({_id: req.params.productId}).lean();
+  const quantity = Number(req.query.quantity) <= product.stock ? req.query.quantity : product.stock;
 
   for (let i = 0; i <cart.length; i++) {
     if (cart[i]._id === req.params.productId) {
       switch (req.query.action) {
         case 'quantity':
-          cart[i].quantity = req.query.quantity;
+          cart[i].quantity = quantity;
           cart[i].totalPrice = cart[i].price * cart[i].quantity;
           break;
         case 'remove':

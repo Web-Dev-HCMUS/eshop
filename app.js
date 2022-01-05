@@ -22,6 +22,7 @@ const hbs = create({
     sum: (a, b) => a + b,
     length: (obj) => obj.length,
     increase: (n) => n + 1,
+    compare: (a, b) => a === b,
     getPage: (total, limit) => (total % limit) + 1,
     for: function (from, to, incr, block) {
       let accum = "";
