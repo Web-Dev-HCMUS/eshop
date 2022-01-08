@@ -35,5 +35,19 @@ exports.getPurchase = async (req, status) => {
     return carts;
 };
 
-exports.cancelOrder = async (req) => await cartModel.deleteOne({_id:req.params._id});
+exports.cancelOrder = async (req) => {
+    const cart = await cartModel.findById(req.params._id);
+
+    for (let j = 0; j < cart.products.length; j++) {
+        await productModel.findById(cart.products[j]._id).then(async product => {
+            const updateObject = {
+                stock: product.stock + cart.products[j].quantity,
+                sold: product.sold - cart.products[j].quantity
+            }
+            await productModel.updateOne({_id: cart.products[j]._id}, updateObject);
+        })
+    }
+
+    await cartModel.deleteOne({_id: req.params._id});
+}
 

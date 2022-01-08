@@ -7,7 +7,7 @@ exports.createNewCart = async (req) => {
     await productModel.findById(cart[i]._id).then(async product => {
       const updateObject = {
         stock: product.stock - cart[i].quantity,
-        sold: cart[i].quantity
+        sold: product.sold + cart[i].quantity
       }
       await productModel.updateOne({_id: cart[i]._id}, updateObject);
     })
