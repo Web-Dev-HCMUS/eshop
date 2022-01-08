@@ -1,153 +1,50 @@
-const Product = require("../../models/Product");
+const productService = require("./productsService");
 const mongooseObject = require("../../ulti/mongoose");
 
-// change limit product will show on products page
 const perPage = 9;
 
 class productsController {
   // [GET] /
   async index(req, res, next) {
-    const totalDoc = await Product.find({}).count();
+    const totalDoc = await productService.countDoc();
     const totalPage = Math.ceil(totalDoc / perPage);
-    const currentPage = req.query.page || 1;
-    const products = await Product.find({})
-      .skip(perPage * (currentPage - 1))
-      .limit(perPage);
+    const products = await productService.list(req.query.page || 1);
 
     res.render("../components/products/views/products", {
       products: mongooseObject.multipleMongooseToObject(products),
-      totalPage: totalPage,
-      user: req.user,
+      totalPage: totalPage
     });
   }
 
   // [GET] /:type
   async show(req, res, next) {
-    if (req.params.type === "search") {
-      console.log("params", req.params.type);
-      let filter = {};
-      const keyword = req.query.name;
-      if (keyword !== "") {
-        filter = {
-          name: {
-            $regex: keyword,
-            $options: "i",
-          },
-        };
-      }
-      const category = req.query.category;
+    const {filter, sort} = productService.handleSearchParams(req);
 
-      if (category !== "all" && category !== "0" && category) {
-        filter.type = category;
-      }
-      const rangePrice = req.query.rangePrice;
+    const totalDoc = await productService.countDocBySearch(filter);
+    const totalPage = Math.ceil(totalDoc / perPage);
+    const currentPage = req.query.page || 1;
 
-      if (rangePrice !== "0") {
-        switch (rangePrice) {
-          case "1":
-            filter.price = {
-              $lte: 10000000,
-            };
-            break;
-          case "2":
-            filter.price = {
-              $gte: 10000000,
-              $lte: 25000000,
-            };
-            break;
-          case "3":
-            filter.price = {
-              $gte: 25000000,
-            };
-            break;
-          default:
-            filter.price = {
-              $gte: 1,
-            };
-            break;
-        }
-      }
+    const products = await productService.listBySearch(filter, sort, currentPage);
 
-      const release = req.query.release;
-      const sortParams = req.query.sort;
-      const orderParams = req.query.order;
-      let sort = {};
-      if (release === "0" || !release) {
-        sort = { updatedAt: "-1" };
-      } else {
-        sort = { updatedAt: release };
-      }
-
-      if (sortParams === "price") {
-        if (orderParams === "asc") {
-          sort = { price: "1" };
-        } else {
-          sort = { price: "-1" };
-        }
-      }
-
-      const totalDoc = await Product.find(filter).count();
-      const totalPage = Math.ceil(totalDoc / perPage);
-      const currentPage = req.query.page || 1;
-
-      const products = await Product.find(filter)
-        .sort(sort)
-        .collation({ locale: "en_US", numericOrdering: true })
-        .skip(perPage * (currentPage - 1))
-        .limit(perPage);
-
-      res.render("../components/products/views/products", {
-        products: mongooseObject.multipleMongooseToObject(products),
-        totalPage: totalPage,
-      });
-    } else {
-      const totalDoc = await Product.find({ type: req.params.type }).count();
-      const totalPage = Math.ceil(totalDoc / perPage);
-      const currentPage = req.query.page || 1;
-      const products = await Product.find({ type: req.params.type })
-        .skip(perPage * (currentPage - 1))
-        .limit(perPage);
-
-      res.render("../components/products/views/products", {
-        products: mongooseObject.multipleMongooseToObject(products),
-        totalPage: totalPage,
-        user: req.user,
-      });
-    }
+    res.render("../components/products/views/products", {
+      products: mongooseObject.multipleMongooseToObject(products),
+      totalPage: totalPage
+    });
   }
+
   async category(req, res, next) {
     const category = req.params.category;
-    if (category === "all") {
-      const totalDoc = await Product.find({}).count();
-      const totalPage = Math.ceil(totalDoc / perPage);
-      const currentPage = req.query.page || 1;
-      const products = await Product.find({})
-        .skip(perPage * (currentPage - 1))
-        .limit(perPage);
 
-      res.render("../components/products/views/products", {
-        products: mongooseObject.multipleMongooseToObject(products),
-        totalPage: totalPage,
-        user: req.user,
-      });
-      return;
-    }
-    if (category !== "") {
-      console.log("category", category);
-      const totalDoc = await Product.find({ type: category }).count();
-      const totalPage = Math.ceil(totalDoc / perPage);
-      const currentPage = req.query.page || 1;
-      const products = await Product.find({ type: category })
-        .skip(perPage * (currentPage - 1))
-        .limit(perPage);
+    const totalDoc = await productService.countDocByCategory(category);
+    const totalPage = Math.ceil(totalDoc / perPage);
+    const currentPage = req.query.page || 1;
 
-      res.render("../components/products/views/products", {
-        products: mongooseObject.multipleMongooseToObject(products),
-        totalPage: totalPage,
-        user: req.user,
-      });
-      return;
-    }
+    const products = await productService.listByCategory(category, currentPage);
+
+    res.render("../components/products/views/products", {
+      products: mongooseObject.multipleMongooseToObject(products),
+      totalPage: totalPage
+    });
   }
 }
 

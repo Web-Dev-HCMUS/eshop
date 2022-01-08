@@ -7,7 +7,3 @@ exports.list = async () => {
   const result = await productModel.find({ sort: sort }).limit(10);
   return result;
 };
-exports.category = async () => {
-  const result = await categoryModel.find({});
-  return result;
-};

@@ -67,7 +67,6 @@ app.use(function (req, res, next) {
 app.get("*", function (req, res, next) {
   res.locals.cart = req.session.cart;
   res.locals.totalOrderPrice = req.session.totalOrderPrice;
-  res.locals.category = req.session.category;
   next();
 });
 
