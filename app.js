@@ -8,9 +8,9 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const passport = require("./passport");
 
-const db = require("./config/db");
+//const db = require("./config/db");
 //connect to databse
-db.connect();
+//db.connect();
 
 const app = express();
 
