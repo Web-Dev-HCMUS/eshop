@@ -187,15 +187,14 @@
     const highestPrice=()=>{
         const params= new URLSearchParams(window.location.search);
         if(params.has('name')){
-            window.location.href = '/products/search?name=' + params.get('name')+'&category='+params.get('category') + '&page=1&sort=price&order=des';
+            window.location.href = '/products/search?name=' + params.get('name') + '&page=1&sort=price&order=des';
         }else{
         window.location.href = '/products/search?name=' + '&sort=price&order=des';}
     }
     const lowestPrice=()=>{
         const params= new URLSearchParams(window.location.search);
-        
         if(params.has('name')){
-            window.location.href = '/products/search?name=' + params.get('name')+'&category='+params.get('category') + '&page=1&sort=price&order=asc';
+            window.location.href = '/products/search?name=' + params.get('name') + '&page=1&sort=price&order=asc';
         }else{
         window.location.href = '/products/search?name=' + '&sort=price&order=asc';}
     }
